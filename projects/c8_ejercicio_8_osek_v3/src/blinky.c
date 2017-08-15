@@ -93,8 +93,8 @@ TASK( Tarea_A )
 
 	while(1)
 	{
-		//WaitEvent( evento_muestreo_tecla );
-		//ClearEvent( evento_muestreo_tecla );
+		WaitEvent( evento_muestreo_tecla );
+		ClearEvent( evento_muestreo_tecla );
 
 
 		/* MAQUINA DE ESTADOS DE TECLA */
