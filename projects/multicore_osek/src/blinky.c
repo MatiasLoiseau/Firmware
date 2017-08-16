@@ -6,7 +6,8 @@
 
 /*==================[inlcusiones]============================================*/
 
-#include "blinky.h"   // <= su propio archivo de cabecera
+#include "../../multicore_osek/inc/blinky.h"   // <= su propio archivo de cabecera
+
 #include "sapi.h"     // <= Biblioteca sAPI
 #include "os.h"       // <= freeOSEK
 
