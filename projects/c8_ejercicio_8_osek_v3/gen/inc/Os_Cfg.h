@@ -87,6 +87,8 @@
 /** \brief Definition of the Application Mode AppMode1 */
 #define AppMode1 0
 
+/** \brief Definition of the Event evento_muestreo_tecla */
+#define evento_muestreo_tecla 0x1U
 
 
 /** \brief Definition of the Alarm Alamar_Medir_Tecla */

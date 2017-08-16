@@ -125,11 +125,11 @@ const TaskConstType TasksConst[TASKS_COUNT] = {
        0, /* task priority */
        1, /* task max activations */
        {
-         1, /* extended task */
+         0, /* basic task */
          0, /* non preemtive task */
          0
       }, /* task const flags */
-      0 | evento_muestreo_tecla , /* events mask */
+      0 , /* events mask */
       0 ,/* resources mask */
       0 /* core */
    },
@@ -158,16 +158,12 @@ const TaskCoreType RemoteTasksCore[REMOTE_TASKS_COUNT] = {};
 /** \brief TaskVar Array */
 TaskVariableType TasksVar[TASKS_COUNT];
 
-/** \brief List of Auto Start Tasks in Application Mode AppMode1 */
-const TaskType TasksAppModeAppMode1[1]  = {
-   Tarea_A
-};
 /** \brief AutoStart Array */
 const AutoStartType AutoStart[1]  = {
    /* Application Mode AppMode1 */
    {
-      1, /* Total Auto Start Tasks in this Application Mode */
-      (TaskRefType)TasksAppModeAppMode1 /* Pointer to the list of Auto Start Stacks on this Application Mode */
+      0, /* Total Auto Start Tasks in this Application Mode */
+      NULL /* no tasks on this mode */
    }
 };
 
@@ -193,11 +189,11 @@ AlarmVarType AlarmsVar[3];
 const AlarmConstType AlarmsConst[3]  = {
    {
       OSEK_COUNTER_HardwareCounter, /* Counter */
-      SETEVENT, /* Alarm action */
+      ACTIVATETASK, /* Alarm action */
       {
          NULL, /* no callback */
          Tarea_A, /* TaskID */
-         evento_muestreo_tecla, /* no event */
+         0, /* no event */
          0 /* no counter */
       },
    },
@@ -224,6 +220,12 @@ const AlarmConstType AlarmsConst[3]  = {
 };
 
 const AutoStartAlarmType AutoStartAlarm[ALARM_AUTOSTART_COUNT] = {
+  {
+      AppMode1, /* Application Mode */
+      Alamar_Medir_Tecla, /* Alarms */
+      0, /* Alarm Time */
+      30 /* Alarm Time */
+   },
   {
       AppMode1, /* Application Mode */
       Alamar_Toggle_Led, /* Alarms */

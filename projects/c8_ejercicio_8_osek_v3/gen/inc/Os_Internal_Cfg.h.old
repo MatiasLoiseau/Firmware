@@ -118,7 +118,7 @@
       ErrorHookRunning = (uint8)0U;   \
    }
 
-#define ALARM_AUTOSTART_COUNT 2
+#define ALARM_AUTOSTART_COUNT 3
 
 #define OSEK_COUNTER_HardwareCounter 0
 /** \brief ALARMS_COUNT define */
@@ -128,7 +128,7 @@
 #define NON_PREEMPTIVE OSEK_ENABLE
 
 /** \brief NO_EVENTS macro definition */
-#define NO_EVENTS OSEK_DISABLE
+#define NO_EVENTS OSEK_ENABLE
 
 /** \brief NO_RES_SCHEDULER macro definition */
 #define NO_RES_SCHEDULER OSEK_ENABLE
@@ -342,8 +342,6 @@ extern TaskVariableType TasksVar[TASKS_COUNT];
  **/
 extern uint8 ApplicationMode;
 
-/** \brief List of Auto Start Tasks in Application Mode AppMode1 */
-extern const TaskType TasksAppModeAppMode1[1];
 /** \brief AutoStart Array */
 extern const AutoStartType AutoStart[1];
 

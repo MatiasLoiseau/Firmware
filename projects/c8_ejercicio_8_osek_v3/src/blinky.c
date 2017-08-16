@@ -53,6 +53,8 @@ int main( void )
     // ---------- CONFIGURACIONES ------------------------------
     // Inicializar y configurar la plataforma
     boardConfig();
+    uartConfig(UART_USB, 115200);
+    uartWriteString(UART_USB, "Iniciando UART\n\r");
 
     // ---------- INICIAR SISTEMA OPERATIVO --------------------
     // Starts the operating system in the Application Mode 1
