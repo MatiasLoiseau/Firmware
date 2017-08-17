@@ -1,13 +1,13 @@
 /*============================================================================
- * Licencia: 
- * Autor: 
- * Fecha: 
+ * Licencia:
+ * Autor:
+ * Fecha:
  *===========================================================================*/
 
 /*==================[inlcusiones]============================================*/
 
-#include "blinky.h"   // <= su propio archivo de cabecera
-#include "sapi.h"     // <= Biblioteca sAPI
+//#include "blinky.h"   // <= own header (optional)
+#include "sapi.h"        // <= sAPI header
 #include "os.h"       // <= freeOSEK
 
 /*==================[definiciones y macros]==================================*/
@@ -27,9 +27,13 @@ int main( void )
 {
    // ---------- CONFIGURACIONES ------------------------------
    // Inicializar y configurar la plataforma
-   boardConfig();   
-   
+   boardConfig();
+
    // ---------- INICIAR SISTEMA OPERATIVO --------------------
+	// Starts the operating system in the Application Mode 1
+	// This example has only one Application Mode
+	StartOS(AppMode1);
+
 	// Starts the operating system in the Application Mode 1
 	// This example has only one Application Mode
 	StartOS(AppMode1);
@@ -37,7 +41,7 @@ int main( void )
 	// StartOs shall never returns, but to avoid compiler warnings or errors
 	// 0 is returned
 
-   // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta 
+   // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta
    // directamenteno sobre un microcontroladore y no es llamado por ningun
    // Sistema Operativo, como en el caso de un programa para PC.
    return 0;
@@ -73,6 +77,5 @@ TASK(PeriodicTask2)
 
 // Board_Init();
 // ciaaIOInit();
-
 
 /*==================[end of file]============================================*/
