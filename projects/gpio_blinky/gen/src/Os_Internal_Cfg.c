@@ -77,31 +77,30 @@
 /*==================[internal functions declaration]=========================*/
 
 /*==================[internal data definition]===============================*/
-/** \brief Tarea_A stack */
+/** \brief PeriodicTask stack */
 #if ( x86 == ARCH )
-uint8 StackTaskTarea_A[512 + TASK_STACK_ADDITIONAL_SIZE];
+uint8 StackTaskPeriodicTask[512 + TASK_STACK_ADDITIONAL_SIZE];
 #else
-uint8 StackTaskTarea_A[512];
+uint8 StackTaskPeriodicTask[512];
 #endif
-/** \brief Tarea_C stack */
+/** \brief PeriodicTask2 stack */
 #if ( x86 == ARCH )
-uint8 StackTaskTarea_C[512 + TASK_STACK_ADDITIONAL_SIZE];
+uint8 StackTaskPeriodicTask2[512 + TASK_STACK_ADDITIONAL_SIZE];
 #else
-uint8 StackTaskTarea_C[512];
+uint8 StackTaskPeriodicTask2[512];
 #endif
 
-/** \brief Tarea_A context */
-TaskContextType ContextTaskTarea_A;
-/** \brief Tarea_C context */
-TaskContextType ContextTaskTarea_C;
+/** \brief PeriodicTask context */
+TaskContextType ContextTaskPeriodicTask;
+/** \brief PeriodicTask2 context */
+TaskContextType ContextTaskPeriodicTask2;
 
 /** \brief Ready List for Priority 0 */
 TaskType ReadyList0[2];
 
-const AlarmType OSEK_ALARMLIST_HardwareCounter[3] = {
-   Alamar_Medir_Tecla, /* this alarm has to be incremented with this counter */
-   Alamar_Toggle_Led, /* this alarm has to be incremented with this counter */
-   Alarma_Tick_Count, /* this alarm has to be incremented with this counter */
+const AlarmType OSEK_ALARMLIST_HardwareCounter[2] = {
+   ActivatePeriodicTask, /* this alarm has to be incremented with this counter */
+   ActivatePeriodicTask2, /* this alarm has to be incremented with this counter */
 };
 
 
@@ -116,16 +115,16 @@ const AlarmType OSEK_ALARMLIST_HardwareCounter[3] = {
  */
 
 const TaskConstType TasksConst[TASKS_COUNT] = {
-   /* Task Tarea_A */
+   /* Task PeriodicTask */
    {
-       OSEK_TASK_Tarea_A,   /* task entry point */
-       &ContextTaskTarea_A, /* pointer to task context */
-       StackTaskTarea_A, /* pointer stack memory */
-       sizeof(StackTaskTarea_A), /* stack size */
+       OSEK_TASK_PeriodicTask,   /* task entry point */
+       &ContextTaskPeriodicTask, /* pointer to task context */
+       StackTaskPeriodicTask, /* pointer stack memory */
+       sizeof(StackTaskPeriodicTask), /* stack size */
        0, /* task priority */
        1, /* task max activations */
        {
-         0, /* basic task */
+         1, /* extended task */
          0, /* non preemtive task */
          0
       }, /* task const flags */
@@ -133,16 +132,16 @@ const TaskConstType TasksConst[TASKS_COUNT] = {
       0 ,/* resources mask */
       0 /* core */
    },
-   /* Task Tarea_C */
+   /* Task PeriodicTask2 */
    {
-       OSEK_TASK_Tarea_C,   /* task entry point */
-       &ContextTaskTarea_C, /* pointer to task context */
-       StackTaskTarea_C, /* pointer stack memory */
-       sizeof(StackTaskTarea_C), /* stack size */
+       OSEK_TASK_PeriodicTask2,   /* task entry point */
+       &ContextTaskPeriodicTask2, /* pointer to task context */
+       StackTaskPeriodicTask2, /* pointer stack memory */
+       sizeof(StackTaskPeriodicTask2), /* stack size */
        0, /* task priority */
        1, /* task max activations */
        {
-         0, /* basic task */
+         1, /* extended task */
          0, /* non preemtive task */
          0
       }, /* task const flags */
@@ -158,12 +157,17 @@ const TaskCoreType RemoteTasksCore[REMOTE_TASKS_COUNT] = {};
 /** \brief TaskVar Array */
 TaskVariableType TasksVar[TASKS_COUNT];
 
+/** \brief List of Auto Start Tasks in Application Mode AppMode1 */
+const TaskType TasksAppModeAppMode1[2]  = {
+   PeriodicTask,
+   PeriodicTask2
+};
 /** \brief AutoStart Array */
 const AutoStartType AutoStart[1]  = {
    /* Application Mode AppMode1 */
    {
-      0, /* Total Auto Start Tasks in this Application Mode */
-      NULL /* no tasks on this mode */
+      2, /* Total Auto Start Tasks in this Application Mode */
+      (TaskRefType)TasksAppModeAppMode1 /* Pointer to the list of Auto Start Stacks on this Application Mode */
    }
 };
 
@@ -183,36 +187,26 @@ const TaskPriorityType ResourcesPriority[0]  = {
 
 };
 /** TODO replace next line with: 
- ** AlarmVarType AlarmsVar[3]; */
-AlarmVarType AlarmsVar[3];
+ ** AlarmVarType AlarmsVar[2]; */
+AlarmVarType AlarmsVar[2];
 
-const AlarmConstType AlarmsConst[3]  = {
+const AlarmConstType AlarmsConst[2]  = {
    {
       OSEK_COUNTER_HardwareCounter, /* Counter */
       ACTIVATETASK, /* Alarm action */
       {
          NULL, /* no callback */
-         Tarea_A, /* TaskID */
+         PeriodicTask, /* TaskID */
          0, /* no event */
          0 /* no counter */
       },
    },
    {
       OSEK_COUNTER_HardwareCounter, /* Counter */
-      ALARMCALLBACK, /* Alarm action */
+      ACTIVATETASK, /* Alarm action */
       {
-         OSEK_CALLBACK_CallbackToggleLed, /* callback */
-         0, /* no taskid */
-         0, /* no event */
-         0 /* no counter */
-      },
-   },
-   {
-      OSEK_COUNTER_HardwareCounter, /* Counter */
-      ALARMCALLBACK, /* Alarm action */
-      {
-         OSEK_CALLBACK_CallbackTickCount, /* callback */
-         0, /* no taskid */
+         NULL, /* no callback */
+         PeriodicTask2, /* TaskID */
          0, /* no event */
          0 /* no counter */
       },
@@ -222,21 +216,15 @@ const AlarmConstType AlarmsConst[3]  = {
 const AutoStartAlarmType AutoStartAlarm[ALARM_AUTOSTART_COUNT] = {
   {
       AppMode1, /* Application Mode */
-      Alamar_Medir_Tecla, /* Alarms */
-      0, /* Alarm Time */
-      30 /* Alarm Time */
-   },
-  {
-      AppMode1, /* Application Mode */
-      Alamar_Toggle_Led, /* Alarms */
+      ActivatePeriodicTask, /* Alarms */
       0, /* Alarm Time */
       100 /* Alarm Time */
    },
   {
       AppMode1, /* Application Mode */
-      Alarma_Tick_Count, /* Alarms */
+      ActivatePeriodicTask2, /* Alarms */
       0, /* Alarm Time */
-      1 /* Alarm Time */
+      200 /* Alarm Time */
    }
 };
 
@@ -244,9 +232,9 @@ CounterVarType CountersVar[1];
 
 const CounterConstType CountersConst[1] = {
    {
-      3, /* quantity of alarms for this counter */
+      2, /* quantity of alarms for this counter */
       (AlarmType*)OSEK_ALARMLIST_HardwareCounter, /* alarms list */
-      1000000, /* max allowed value */
+      1000, /* max allowed value */
       1, /* min cycle */
       1 /* ticks per base */
    }

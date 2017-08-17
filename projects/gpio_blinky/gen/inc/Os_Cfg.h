@@ -80,21 +80,19 @@
 #define OSEK_OS_INTERRUPT_MASK ((InterruptFlagsType)0xFFFFFFFFU)
 
 /** \brief Task Definition */
-#define Tarea_A 0
+#define PeriodicTask 0
 /** \brief Task Definition */
-#define Tarea_C 1
+#define PeriodicTask2 1
 
 /** \brief Definition of the Application Mode AppMode1 */
 #define AppMode1 0
 
 
 
-/** \brief Definition of the Alarm Alamar_Medir_Tecla */
-#define Alamar_Medir_Tecla 0
-/** \brief Definition of the Alarm Alamar_Toggle_Led */
-#define Alamar_Toggle_Led 1
-/** \brief Definition of the Alarm Alarma_Tick_Count */
-#define Alarma_Tick_Count 2
+/** \brief Definition of the Alarm ActivatePeriodicTask */
+#define ActivatePeriodicTask 0
+/** \brief Definition of the Alarm ActivatePeriodicTask2 */
+#define ActivatePeriodicTask2 1
 
 /** \brief Definition of the Counter HardwareCounter */
 #define HardwareCounter 0
@@ -183,16 +181,12 @@ extern unsigned int Osek_ErrorRet;
 /** \brief Error Hook */
 extern void ErrorHook(void);
 
-/** \brief Task Declaration of Task Tarea_A */
-DeclareTask(Tarea_A);
-/** \brief Task Declaration of Task Tarea_C */
-DeclareTask(Tarea_C);
+/** \brief Task Declaration of Task PeriodicTask */
+DeclareTask(PeriodicTask);
+/** \brief Task Declaration of Task PeriodicTask2 */
+DeclareTask(PeriodicTask2);
 
 
-/** \brief Alarm Callback declaration */
-extern void OSEK_CALLBACK_CallbackToggleLed(void);
-/** \brief Alarm Callback declaration */
-extern void OSEK_CALLBACK_CallbackTickCount(void);
 
 /** \brief Schedule this Task if higher priority Task are Active
  **
