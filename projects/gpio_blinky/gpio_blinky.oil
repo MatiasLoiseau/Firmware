@@ -13,7 +13,21 @@ OSEK OSEK {
 
    APPMODE = AppMode1;
 
-   TASK PeriodicTask {
+   EVENT = evento_muestreo_tecla;
+
+   TASK readGPIO {
+      PRIORITY = 2;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = EXTENDED;
+      SCHEDULE = NON;
+      EVENT = evento_muestreo_tecla;
+      AUTOSTART = TRUE {
+      	APPMODE = AppMode1;
+      }
+   }
+
+   TASK blinkying {
       PRIORITY = 2;
       ACTIVATION = 1;
       STACK = 512;
@@ -24,39 +38,12 @@ OSEK OSEK {
       }
    }
 
-   TASK PeriodicTask2 {
-      PRIORITY = 2;
-      ACTIVATION = 1;
-      STACK = 512;
-      TYPE = EXTENDED;
-      SCHEDULE = NON;
-      AUTOSTART = TRUE {
-      	APPMODE = AppMode1;
-      }
-   }
-   
-   ALARM ActivatePeriodicTask {
+   ALARM Alarma_Medir_Tecla {
       COUNTER = HardwareCounter;
-      ACTION = ACTIVATETASK {
-         TASK = PeriodicTask;
-      }
-      AUTOSTART = TRUE {
-      	APPMODE = AppMode1;
-      	ALARMTIME = 0;
-      	CYCLETIME = 100;
-      }
-   }
-
-   ALARM ActivatePeriodicTask2 {
-      COUNTER = HardwareCounter;
-      ACTION = ACTIVATETASK {
-         TASK = PeriodicTask2;
-      }
-      AUTOSTART = TRUE {
-      	APPMODE = AppMode1;
-      	ALARMTIME = 0;
-      	CYCLETIME = 200;
-      }
+      ACTION = SETEVENT {
+      	 EVENT= evento_muestreo_tecla;
+         TASK = readGPIO;
+      } 
    }
 
    COUNTER HardwareCounter {

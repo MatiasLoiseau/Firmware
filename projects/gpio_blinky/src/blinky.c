@@ -49,19 +49,30 @@ void ErrorHook(void)
 	ShutdownOS(0);
 }
 
-TASK(PeriodicTask)
+TASK(readGPIO)
 {
+	SetRelAlarm( Alarma_Medir_Tecla, 0 , 30 );
    // Intercambia el valor del LEDB
-   gpioToggle( LEDB );
+	while(1){
+		WaitEvent( evento_muestreo_tecla );
+		ClearEvent( evento_muestreo_tecla );
+
+		if(!gpioRead(TEC1)){
+			ActivateTask(blinkying);
+		}
+		else{
+			gpioWrite(LEDB, OFF);
+		}
+
+	}
 
 	// terminate task
 	TerminateTask();
 }
 
-TASK(PeriodicTask2)
+TASK(blinkying)
 {
-   // Intercambia el valor del LED3
-   gpioToggle( LED3 );
+	gpioWrite(LEDB, ON);
 
 	// terminate task
 	TerminateTask();
