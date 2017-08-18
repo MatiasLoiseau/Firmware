@@ -42,7 +42,7 @@
 
 #PROJECT = projects/mi_nuevo_proyecto
 #PROJECT = projects/c8_ejercicio_8_osek_v3
-PROJECT = projects/gpio_blinky
+#PROJECT = projects/gpio_blinky
 
 # examples
 
@@ -57,6 +57,8 @@ PROJECT = projects/gpio_blinky
 #PROJECT = examples/multicore/freeRTOS_static/m0
 #PROJECT = examples/multicore/freeRTOS_led_toggle/m0
 #PROJECT = examples/multicore/freeRTOS_led_toggle/start_m0
+PROJECT = examples/multicore/freeRTOS_msg_ipc/m0
+#PROJECT = examples/multicore/freeRTOS_msg_ipc/start_m0
 
 #PROJECT = examples/blinky
 #PROJECT = examples/blinky_rit
@@ -103,8 +105,8 @@ PROJECT = projects/gpio_blinky
 # current target
 #-------------------------------------------------------------------------------
 
-TARGET = lpc4337_m4
-#TARGET = lpc4337_m0
+#TARGET = lpc4337_m4
+TARGET = lpc4337_m0
 #TARGET = lpc1769
 #TARGET = lpc54102_m4
 #TARGET = lpc54102_m0
