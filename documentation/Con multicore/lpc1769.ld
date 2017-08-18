@@ -2,9 +2,9 @@
  * GENERATED FILE - DO NOT EDIT
  * (c) Code Red Technologies Ltd, 2008-13
  * (c) NXP Semiconductors 2013-2015
- * Generated linker script file for LPC4337-M0
+ * Generated linker script file for LPC1769
  * Created from generic_c.ld (LPCXpresso v7.6 (2 [Build 326] [2015-02-02] ))
- * By LPCXpresso v7.6.2 [Build 326] [2015-02-02]  on Wed Aug 26 15:59:13 ART 2015
+ * By LPCXpresso v7.6.2 [Build 326] [2015-02-02]  on Sun Jun 07 11:21:21 ART 2015
  */
 
 ENTRY(ResetISR)
@@ -26,10 +26,15 @@ SECTIONS
         LONG(LOADADDR(.data));
         LONG(    ADDR(.data));
         LONG(  SIZEOF(.data));
+        LONG(LOADADDR(.data_RAM2));
+        LONG(    ADDR(.data_RAM2));
+        LONG(  SIZEOF(.data_RAM2));
         __data_section_table_end = .;
         __bss_section_table = .;
         LONG(    ADDR(.bss));
         LONG(  SIZEOF(.bss));
+        LONG(    ADDR(.bss_RAM2));
+        LONG(  SIZEOF(.bss_RAM2));
         __bss_section_table_end = .;
         __section_table_end = . ;
         /* End of Global Section Table */
@@ -37,7 +42,15 @@ SECTIONS
 
         *(.after_vectors*)
 
-    } >MFlashB512
+        /* Code Read Protect data */
+        . = 0x000002FC ;
+        PROVIDE(__CRP_WORD_START__ = .) ;
+        KEEP(*(.crp))
+        PROVIDE(__CRP_WORD_END__ = .) ;
+        ASSERT(!(__CRP_WORD_START__ == __CRP_WORD_END__), "Linker CRP Enabled, but no CRP_WORD provided within application");
+        /* End of Code Read Protect */
+
+    } >MFlash512
 
     .text : ALIGN(4)
     {
@@ -45,7 +58,7 @@ SECTIONS
         *(.rodata .rodata.* .constdata .constdata.*)
         . = ALIGN(4);
 
-    } > MFlashB512
+    } > MFlash512
 
     /*
      * for exception handling/unwind - some Newlib functions (in common
@@ -54,17 +67,30 @@ SECTIONS
     .ARM.extab : ALIGN(4)
     {
     	*(.ARM.extab* .gnu.linkonce.armextab.*)
-    } > MFlashB512
+    } > MFlash512
     __exidx_start = .;
 
     .ARM.exidx : ALIGN(4)
     {
     	*(.ARM.exidx* .gnu.linkonce.armexidx.*)
-    } > MFlashB512
+    } > MFlash512
     __exidx_end = .;
 
     _etext = .;
 
+
+    /* DATA section for RamAHB32 */
+    .data_RAM2 : ALIGN(4)
+    {
+       FILL(0xff)
+       PROVIDE(__start_data_RAM2 = .) ;
+       *(.ramfunc.$RAM2)
+       *(.ramfunc.$RamAHB32)
+    	*(.data.$RAM2*)
+    	*(.data.$RamAHB32*)
+       . = ALIGN(4) ;
+       PROVIDE(__end_data_RAM2 = .) ;
+    } > RamAHB32 AT>MFlash512
 
     /* MAIN DATA SECTION */
 
@@ -74,10 +100,10 @@ SECTIONS
         KEEP(*(.bss.$RESERVED*))
         . = ALIGN(4) ;
         _end_uninit_RESERVED = .;
-    } > RamAHB_ETB16
+    } > RamLoc32
 
 
-	/* Main DATA section (RamAHB_ETB16) */
+	/* Main DATA section (RamLoc32) */
 	.data : ALIGN(4)
 	{
 	   FILL(0xff)
@@ -87,8 +113,17 @@ SECTIONS
 	   *(.data*)
 	   . = ALIGN(4) ;
 	   _edata = . ;
-	} > RamAHB_ETB16 AT>MFlashB512
+	} > RamLoc32 AT>MFlash512
 
+    /* BSS section for RamAHB32 */
+    .bss_RAM2 : ALIGN(4)
+    {
+       PROVIDE(__start_bss_RAM2 = .) ;
+    	*(.bss.$RAM2*)
+    	*(.bss.$RamAHB32*)
+       . = ALIGN(4) ;
+       PROVIDE(__end_bss_RAM2 = .) ;
+    } > RamAHB32
 
     /* MAIN BSS SECTION */
     .bss : ALIGN(4)
@@ -99,8 +134,15 @@ SECTIONS
         . = ALIGN(4) ;
         _ebss = .;
         PROVIDE(end = .);
-    } > RamAHB_ETB16
+    } > RamLoc32
 
+    /* NOINIT section for RamAHB32 */
+    .noinit_RAM2 (NOLOAD) : ALIGN(4)
+    {
+    	*(.noinit.$RAM2*)
+    	*(.noinit.$RamAHB32*)
+       . = ALIGN(4) ;
+    } > RamAHB32
 
     /* DEFAULT NOINIT SECTION */
     .noinit (NOLOAD): ALIGN(4)
@@ -109,14 +151,8 @@ SECTIONS
         *(.noinit*)
          . = ALIGN(4) ;
         _end_noinit = .;
-    } > RamAHB_ETB16
+    } > RamLoc32
 
     PROVIDE(_pvHeapStart = DEFINED(__user_heap_base) ? __user_heap_base : .);
-    PROVIDE(_vStackTop = DEFINED(__user_stack_top) ? __user_stack_top : __top_RamAHB_ETB16 - 0);
-    PROVIDE(__valid_user_code_checksum = 0 -
-         (_vStackTop
-         + (ResetISR + 1)
-         + (NMI_Handler + 1)
-         + (HardFault_Handler + 1)
-         ) );
+    PROVIDE(_vStackTop = DEFINED(__user_stack_top) ? __user_stack_top : __top_RamLoc32 - 0);
 }
