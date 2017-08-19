@@ -43,7 +43,9 @@
 #PROJECT = projects/mi_nuevo_proyecto
 #PROJECT = projects/c8_ejercicio_8_osek_v3
 #PROJECT = projects/gpio_blinky
-PROJECT = projects/ejercicio14_osek
+#PROJECT = projects/ejercicio14_osek
+PROJECT = projects/c10_ej23_delay_osek
+
 
 # examples
 
