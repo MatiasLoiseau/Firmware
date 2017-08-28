@@ -6,81 +6,67 @@
 
 /*==================[inlcusiones]============================================*/
 
-//#include "blinky.h"   // <= own header (optional)
-#include "sapi.h"        // <= sAPI header
+#include "sapi.h"     // <= Biblioteca sAPI
 #include "os.h"       // <= freeOSEK
 
 /*==================[definiciones y macros]==================================*/
 
-/*==================[definiciones de datos internos]=========================*/
+uint32_t tiempo_conmutacion = 50;
 
-TickType ciclosIncrementandose=1;
+/*==================[definiciones de datos internos]=========================*/
 
 /*==================[definiciones de datos externos]=========================*/
 
 /*==================[declaraciones de funciones internas]====================*/
 
+void UartMonitorInit() {
+   uartConfig( UART_USB, 115200 );
+   uartWriteString( UART_USB, "ready osek ej14\n");
+}
+
+void Led1Init() {
+   gpioConfig(LED1, GPIO_OUTPUT);
+}
+
+TASK (BlinkLed) {
+   gpioToggle(LED1);
+   TerminateTask();
+}
+
+
+TASK (ChangeDelay) {
+   CancelAlarm(ActivateBlinkLed);
+   tiempo_conmutacion += 10;
+   SetRelAlarm(ActivateBlinkLed,0,tiempo_conmutacion);
+   TerminateTask();
+}
+
 /*==================[declaraciones de funciones externas]====================*/
 
 /*==================[funcion principal]======================================*/
 
-// FUNCION PRINCIPAL, PUNTO DE ENTRADA AL PROGRAMA LUEGO DE ENCENDIDO O RESET.
 int main( void )
 {
-   // ---------- CONFIGURACIONES ------------------------------
-   // Inicializar y configurar la plataforma
-   boardConfig();
-
-   // ---------- INICIAR SISTEMA OPERATIVO --------------------
-	// Starts the operating system in the Application Mode 1
-	// This example has only one Application Mode
-	StartOS(AppMode1);
-
-	// StartOs shall never returns, but to avoid compiler warnings or errors
-	// 0 is returned
-
-   // NO DEBE LLEGAR NUNCA AQUI, debido a que a este programa se ejecuta
-   // directamenteno sobre un microcontroladore y no es llamado por ningun
-   // Sistema Operativo, como en el caso de un programa para PC.
+   StartOS(AppMode1);
    return 0;
 }
 
+void StartupHook(void) {
+   boardConfig();
+   UartMonitorInit();
+   Led1Init();
+}
 
 void ErrorHook(void)
 {
-	ShutdownOS(0);
+   uartWriteString( UART_USB, "ShutdownOS\n");
+   ShutdownOS(0);
 }
 
-ALARMCALLBACK( CallbackToggleLed )
-{
-    gpioToggle( LED1 );
-    ActivateTask(Tarea_B);
-}
-
-TASK(Tarea_A)
-{
-
-	ciclosIncrementandose=ciclosIncrementandose+100;
-	// terminate task
-	gpioToggle(LED3);
-	TerminateTask();
-}
-
-TASK(Tarea_B)
-{
-
-	//CancelAlarm(Alarma_Toggle_Led);
-	SetRelAlarm(Alarma_Toggle_Led, 0, ciclosIncrementandose);
-
-	// terminate task
-	TerminateTask();
-}
 
 /*==================[definiciones de funciones internas]=====================*/
 
 /*==================[definiciones de funciones externas]=====================*/
 
-// Board_Init();
-// ciaaIOInit();
 
 /*==================[end of file]============================================*/

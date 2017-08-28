@@ -5,7 +5,7 @@ OSEK OSEK {
       ERRORHOOK = TRUE;
       PRETASKHOOK = FALSE;
       POSTTASKHOOK = FALSE;
-      STARTUPHOOK = FALSE;
+      STARTUPHOOK = TRUE;
       SHUTDOWNHOOK = FALSE;
       USERESSCHEDULER = FALSE;
       MEMMAP = FALSE;
@@ -13,32 +13,26 @@ OSEK OSEK {
 
    APPMODE = AppMode1;
 
-   TASK Tarea_A {
-      PRIORITY = 2;
-      ACTIVATION = 1;
-      STACK = 512;
-      TYPE = EXTENDED;
-      SCHEDULE = NON;
-      AUTOSTART = TRUE {
-      	APPMODE = AppMode1;
-      }
-   }
-
-   TASK Tarea_B {
+   TASK ChangeDelay {
       PRIORITY = 1;
       ACTIVATION = 1;
       STACK = 512;
-      TYPE = EXTENDED;
+      TYPE = BASIC;
       SCHEDULE = NON;
-      AUTOSTART = TRUE {
-      	APPMODE = AppMode1;
-      }
    }
-   
-   ALARM ActivateTarea_A {
+
+   TASK BlinkLed {
+      PRIORITY = 1;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON;
+   }
+
+   ALARM ActivateChangeDelay {
       COUNTER = HardwareCounter;
       ACTION = ACTIVATETASK {
-         TASK = Tarea_A;
+         TASK = ChangeDelay;
       }
       AUTOSTART = TRUE {
       	APPMODE = AppMode1;
@@ -47,13 +41,17 @@ OSEK OSEK {
       }
    }
 
-   ALARM Alarma_Toggle_Led {
+   ALARM ActivateBlinkLed {
       COUNTER = HardwareCounter;
-      ACTION = ALARMCALLBACK {
-         ALARMCALLBACKNAME = CallbackToggleLed;
+      ACTION = ACTIVATETASK {
+         TASK = BlinkLed;
+      }
+      AUTOSTART = TRUE {
+         APPMODE = AppMode1;
+         ALARMTIME = 100;
+         CYCLETIME = 50;
       }
    }
-
 
    COUNTER HardwareCounter {
       MAXALLOWEDVALUE = 1000;
