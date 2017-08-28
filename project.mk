@@ -43,16 +43,17 @@
 #PROJECT = projects/mi_nuevo_proyecto
 #PROJECT = projects/c8_ejercicio_8_osek_v3
 #PROJECT = projects/gpio_blinky
-#PROJECT = projects/ejercicio14_osek
+PROJECT = projects/ejercicio14_osek
 #PROJECT = projects/c10_ej23_delay_osek
-PROJECT = projects/ej4osek_carlos
+#PROJECT = projects/ej4osek_carlos
+#PROJECT = projects/pruebas_task
 
 # examples
 
 #A la compilacion el target 
-#ANOTACION IMPORTANTE --> start_m0 = m4 ......... m0 = m0
-#Tambien acordarse de fijarse de cambiar del workshop:
-# el etc/ld/lpc4337_m4_mem y el que no dice nada
+#ANOTACION IMPORTANTE MULTICORE--> Los targets: start_m0 = m4 ......... m0 = m0
+#Tambien acordarse de fijarse de cambiar
+# el etc/ld/lpc4337_m4_mem y etc/ld/lpc4337
 #PROJECT = examples/multicore/blinky/m0
 #PROJECT = examples/multicore/blinky/start_m0
 #PROJECT = examples/multicore/freeRTOS_blinky/m0
