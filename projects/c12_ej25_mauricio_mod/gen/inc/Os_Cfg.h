@@ -80,27 +80,25 @@
 #define OSEK_OS_INTERRUPT_MASK ((InterruptFlagsType)0xFFFFFFFFU)
 
 /** \brief Task Definition */
-#define BlinkLed3 0
+#define Tarea_A 0
 /** \brief Task Definition */
-#define ReadTec1 1
-/** \brief Task Definition */
-#define TickCounter 2
-/** \brief Task Definition */
-#define ShowElapsedTime 3
+#define Tarea_B 1
 
 /** \brief Definition of the Application Mode AppMode1 */
 #define AppMode1 0
 
+/** \brief Definition of the Event EventoDelay */
+#define EventoDelay 0x1U
 
+/** \brief Definition of the resource AccesoAParametros */
+#define AccesoAParametros ((ResourceType)0)
 
-/** \brief Definition of the Alarm ActivateBlinkLed3 */
-#define ActivateBlinkLed3 0
-/** \brief Definition of the Alarm ActivateReadTec1 */
-#define ActivateReadTec1 1
-/** \brief Definition of the Alarm ActivateTickCounter */
-#define ActivateTickCounter 2
-/** \brief Definition of the Alarm ActivateShowElapsedTime */
-#define ActivateShowElapsedTime 3
+/** \brief Definition of the Alarm Alarma_Tarea_A */
+#define Alarma_Tarea_A 0
+/** \brief Definition of the Alarm Alarma_Tarea_B */
+#define Alarma_Tarea_B 1
+/** \brief Definition of the Alarm AlarmaDC */
+#define AlarmaDC 2
 
 /** \brief Definition of the Counter HardwareCounter */
 #define HardwareCounter 0
@@ -192,14 +190,10 @@ extern void StartupHook(void);
 /** \brief Error Hook */
 extern void ErrorHook(void);
 
-/** \brief Task Declaration of Task BlinkLed3 */
-DeclareTask(BlinkLed3);
-/** \brief Task Declaration of Task ReadTec1 */
-DeclareTask(ReadTec1);
-/** \brief Task Declaration of Task TickCounter */
-DeclareTask(TickCounter);
-/** \brief Task Declaration of Task ShowElapsedTime */
-DeclareTask(ShowElapsedTime);
+/** \brief Task Declaration of Task Tarea_A */
+DeclareTask(Tarea_A);
+/** \brief Task Declaration of Task Tarea_B */
+DeclareTask(Tarea_B);
 
 
 

@@ -77,51 +77,28 @@
 /*==================[internal functions declaration]=========================*/
 
 /*==================[internal data definition]===============================*/
-/** \brief BlinkLed3 stack */
+/** \brief PeriodicTask stack */
 #if ( x86 == ARCH )
-uint8 StackTaskBlinkLed3[256 + TASK_STACK_ADDITIONAL_SIZE];
+uint8 StackTaskPeriodicTask[512 + TASK_STACK_ADDITIONAL_SIZE];
 #else
-uint8 StackTaskBlinkLed3[256];
+uint8 StackTaskPeriodicTask[512];
 #endif
-/** \brief ReadTec1 stack */
+/** \brief PeriodicTask2 stack */
 #if ( x86 == ARCH )
-uint8 StackTaskReadTec1[256 + TASK_STACK_ADDITIONAL_SIZE];
+uint8 StackTaskPeriodicTask2[512 + TASK_STACK_ADDITIONAL_SIZE];
 #else
-uint8 StackTaskReadTec1[256];
-#endif
-/** \brief TickCounter stack */
-#if ( x86 == ARCH )
-uint8 StackTaskTickCounter[512 + TASK_STACK_ADDITIONAL_SIZE];
-#else
-uint8 StackTaskTickCounter[512];
-#endif
-/** \brief ShowElapsedTime stack */
-#if ( x86 == ARCH )
-uint8 StackTaskShowElapsedTime[512 + TASK_STACK_ADDITIONAL_SIZE];
-#else
-uint8 StackTaskShowElapsedTime[512];
+uint8 StackTaskPeriodicTask2[512];
 #endif
 
-/** \brief BlinkLed3 context */
-TaskContextType ContextTaskBlinkLed3;
-/** \brief ReadTec1 context */
-TaskContextType ContextTaskReadTec1;
-/** \brief TickCounter context */
-TaskContextType ContextTaskTickCounter;
-/** \brief ShowElapsedTime context */
-TaskContextType ContextTaskShowElapsedTime;
-
-/** \brief Ready List for Priority 1 */
-TaskType ReadyList1[3];
+/** \brief PeriodicTask context */
+TaskContextType ContextTaskPeriodicTask;
+/** \brief PeriodicTask2 context */
+TaskContextType ContextTaskPeriodicTask2;
 
 /** \brief Ready List for Priority 0 */
-TaskType ReadyList0[1];
+TaskType ReadyList0[2];
 
-const AlarmType OSEK_ALARMLIST_HardwareCounter[4] = {
-   ActivateBlinkLed3, /* this alarm has to be incremented with this counter */
-   ActivateReadTec1, /* this alarm has to be incremented with this counter */
-   ActivateTickCounter, /* this alarm has to be incremented with this counter */
-   ActivateShowElapsedTime, /* this alarm has to be incremented with this counter */
+const AlarmType OSEK_ALARMLIST_HardwareCounter[0] = {
 };
 
 
@@ -132,51 +109,16 @@ const AlarmType OSEK_ALARMLIST_HardwareCounter[4] = {
  * priorities and the OpenOSE priorities:
  *
  * User P.         Osek P.
- * 2               1
- * 1               0
+ * 2               0
  */
 
 const TaskConstType TasksConst[TASKS_COUNT] = {
-   /* Task BlinkLed3 */
+   /* Task PeriodicTask */
    {
-       OSEK_TASK_BlinkLed3,   /* task entry point */
-       &ContextTaskBlinkLed3, /* pointer to task context */
-       StackTaskBlinkLed3, /* pointer stack memory */
-       sizeof(StackTaskBlinkLed3), /* stack size */
-       1, /* task priority */
-       1, /* task max activations */
-       {
-         0, /* basic task */
-         0, /* non preemtive task */
-         0
-      }, /* task const flags */
-      0 , /* events mask */
-      0 ,/* resources mask */
-      0 /* core */
-   },
-   /* Task ReadTec1 */
-   {
-       OSEK_TASK_ReadTec1,   /* task entry point */
-       &ContextTaskReadTec1, /* pointer to task context */
-       StackTaskReadTec1, /* pointer stack memory */
-       sizeof(StackTaskReadTec1), /* stack size */
-       1, /* task priority */
-       1, /* task max activations */
-       {
-         0, /* basic task */
-         0, /* non preemtive task */
-         0
-      }, /* task const flags */
-      0 , /* events mask */
-      0 ,/* resources mask */
-      0 /* core */
-   },
-   /* Task TickCounter */
-   {
-       OSEK_TASK_TickCounter,   /* task entry point */
-       &ContextTaskTickCounter, /* pointer to task context */
-       StackTaskTickCounter, /* pointer stack memory */
-       sizeof(StackTaskTickCounter), /* stack size */
+       OSEK_TASK_PeriodicTask,   /* task entry point */
+       &ContextTaskPeriodicTask, /* pointer to task context */
+       StackTaskPeriodicTask, /* pointer stack memory */
+       sizeof(StackTaskPeriodicTask), /* stack size */
        0, /* task priority */
        1, /* task max activations */
        {
@@ -188,13 +130,13 @@ const TaskConstType TasksConst[TASKS_COUNT] = {
       0 ,/* resources mask */
       0 /* core */
    },
-   /* Task ShowElapsedTime */
+   /* Task PeriodicTask2 */
    {
-       OSEK_TASK_ShowElapsedTime,   /* task entry point */
-       &ContextTaskShowElapsedTime, /* pointer to task context */
-       StackTaskShowElapsedTime, /* pointer stack memory */
-       sizeof(StackTaskShowElapsedTime), /* stack size */
-       1, /* task priority */
+       OSEK_TASK_PeriodicTask2,   /* task entry point */
+       &ContextTaskPeriodicTask2, /* pointer to task context */
+       StackTaskPeriodicTask2, /* pointer stack memory */
+       sizeof(StackTaskPeriodicTask2), /* stack size */
+       0, /* task priority */
        1, /* task max activations */
        {
          0, /* basic task */
@@ -222,92 +164,38 @@ const AutoStartType AutoStart[1]  = {
    }
 };
 
-const ReadyConstType ReadyConst[2] = { 
+const ReadyConstType ReadyConst[1] = { 
    {
-      3, /* Length of this ready list */
-      ReadyList1 /* Pointer to the Ready List */
-   },
-   {
-      1, /* Length of this ready list */
+      2, /* Length of this ready list */
       ReadyList0 /* Pointer to the Ready List */
    }
 };
 
 /** TODO replace next line with: 
- ** ReadyVarType ReadyVar[2] ; */
-ReadyVarType ReadyVar[2];
+ ** ReadyVarType ReadyVar[1] ; */
+ReadyVarType ReadyVar[1];
 
 /** \brief Resources Priorities */
 const TaskPriorityType ResourcesPriority[0]  = {
 
 };
 /** TODO replace next line with: 
- ** AlarmVarType AlarmsVar[4]; */
-AlarmVarType AlarmsVar[4];
+ ** AlarmVarType AlarmsVar[0]; */
+AlarmVarType AlarmsVar[0];
 
-const AlarmConstType AlarmsConst[4]  = {
-   {
-      OSEK_COUNTER_HardwareCounter, /* Counter */
-      ACTIVATETASK, /* Alarm action */
-      {
-         NULL, /* no callback */
-         BlinkLed3, /* TaskID */
-         0, /* no event */
-         0 /* no counter */
-      },
-   },
-   {
-      OSEK_COUNTER_HardwareCounter, /* Counter */
-      ACTIVATETASK, /* Alarm action */
-      {
-         NULL, /* no callback */
-         ReadTec1, /* TaskID */
-         0, /* no event */
-         0 /* no counter */
-      },
-   },
-   {
-      OSEK_COUNTER_HardwareCounter, /* Counter */
-      ACTIVATETASK, /* Alarm action */
-      {
-         NULL, /* no callback */
-         TickCounter, /* TaskID */
-         0, /* no event */
-         0 /* no counter */
-      },
-   },
-   {
-      OSEK_COUNTER_HardwareCounter, /* Counter */
-      ACTIVATETASK, /* Alarm action */
-      {
-         NULL, /* no callback */
-         ShowElapsedTime, /* TaskID */
-         0, /* no event */
-         0 /* no counter */
-      },
-   }
+const AlarmConstType AlarmsConst[0]  = {
+
 };
 
 const AutoStartAlarmType AutoStartAlarm[ALARM_AUTOSTART_COUNT] = {
-  {
-      AppMode1, /* Application Mode */
-      ActivateBlinkLed3, /* Alarms */
-      0, /* Alarm Time */
-      1000 /* Alarm Time */
-   },
-  {
-      AppMode1, /* Application Mode */
-      ActivateReadTec1, /* Alarms */
-      0, /* Alarm Time */
-      50 /* Alarm Time */
-   }
+
 };
 
 CounterVarType CountersVar[1];
 
 const CounterConstType CountersConst[1] = {
    {
-      4, /* quantity of alarms for this counter */
+      0, /* quantity of alarms for this counter */
       (AlarmType*)OSEK_ALARMLIST_HardwareCounter, /* alarms list */
       1000, /* max allowed value */
       1, /* min cycle */
@@ -327,6 +215,54 @@ uint8 ErrorHookRunning;
 /*==================[internal functions definition]==========================*/
 
 /*==================[external functions definition]==========================*/
+void OSEK_ISR2_ISR_EXT0(void)
+{
+   /* store the calling context in a variable */
+   ContextType actualContext = GetCallingContext();
+   /* set isr 2 context */
+   SetActualContext(CONTEXT_ISR2);
+
+   /* trigger isr 2 */
+   OSEK_ISR_ISR_EXT0();
+
+   /* reset context */
+   SetActualContext(actualContext);
+
+#if (NON_PREEMPTIVE == OSEK_DISABLE)
+   /* check if the actual task is preemptive */
+   if ( ( CONTEXT_TASK == actualContext ) &&
+        ( TasksConst[GetRunningTask()].ConstFlags.Preemtive ) )
+   {
+      /* this shall force a call to the scheduler */
+      PostIsr2_Arch(isr);
+   }
+#endif /* #if (NON_PREEMPTIVE == OSEK_ENABLE) */
+}
+
+void OSEK_ISR2_ISR_EXT1(void)
+{
+   /* store the calling context in a variable */
+   ContextType actualContext = GetCallingContext();
+   /* set isr 2 context */
+   SetActualContext(CONTEXT_ISR2);
+
+   /* trigger isr 2 */
+   OSEK_ISR_ISR_EXT1();
+
+   /* reset context */
+   SetActualContext(actualContext);
+
+#if (NON_PREEMPTIVE == OSEK_DISABLE)
+   /* check if the actual task is preemptive */
+   if ( ( CONTEXT_TASK == actualContext ) &&
+        ( TasksConst[GetRunningTask()].ConstFlags.Preemtive ) )
+   {
+      /* this shall force a call to the scheduler */
+      PostIsr2_Arch(isr);
+   }
+#endif /* #if (NON_PREEMPTIVE == OSEK_ENABLE) */
+}
+
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */

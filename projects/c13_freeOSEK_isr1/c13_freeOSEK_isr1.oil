@@ -1,0 +1,50 @@
+OSEK OSEK {
+
+   OS	ExampleOS {
+      STATUS = EXTENDED;
+      ERRORHOOK = TRUE;
+      PRETASKHOOK = FALSE;
+      POSTTASKHOOK = FALSE;
+      STARTUPHOOK = TRUE;
+      SHUTDOWNHOOK = FALSE;
+      USERESSCHEDULER = FALSE;
+      MEMMAP = FALSE;
+   };
+
+   APPMODE = AppMode1;
+
+   TASK PeriodicTask {
+      PRIORITY = 2;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON; 
+   }
+
+   TASK PeriodicTask2 {
+      PRIORITY = 2;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON; 
+   }
+
+	ISR ISR_EXT0 { 
+		CATEGORY = 2; 
+		INTERRUPT = GPIO0; 
+		PRIORITY = 0; 
+  	}
+  	
+  	ISR ISR_EXT1 { 
+		CATEGORY = 2; 
+		INTERRUPT = GPIO1; 
+		PRIORITY = 0; 
+  	}  
+ 
+   COUNTER HardwareCounter {
+      MAXALLOWEDVALUE = 1000;
+      TICKSPERBASE = 1;
+      MINCYCLE = 1;
+   };
+
+};

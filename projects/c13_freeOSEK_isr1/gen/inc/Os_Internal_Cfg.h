@@ -82,7 +82,7 @@
 #define ERROR_CHECKING_EXTENDED   2
 
 /** \brief Count of task */
-#define TASKS_COUNT 4U
+#define TASKS_COUNT 2U
 
 /** \brief Remote tasks count */
 #define REMOTE_TASKS_COUNT 0U
@@ -103,7 +103,7 @@
 /** \brief shutdown hook enable-disable macro */
 #define HOOK_SHUTDOWNHOOK OSEK_DISABLE
 
-#define READYLISTS_COUNT 2
+#define READYLISTS_COUNT 1
 #define SetError_Api(api)   ( Osek_ErrorApi = (api) )
 #define SetError_Param1(param1) ( Osek_ErrorParam1 = (param1) )
 #define SetError_Param2(param2) ( Osek_ErrorParam2 = (param2) )
@@ -118,11 +118,11 @@
       ErrorHookRunning = (uint8)0U;   \
    }
 
-#define ALARM_AUTOSTART_COUNT 2
+#define ALARM_AUTOSTART_COUNT 0
 
 #define OSEK_COUNTER_HardwareCounter 0
 /** \brief ALARMS_COUNT define */
-#define ALARMS_COUNT 4
+#define ALARMS_COUNT 0
 
 /** \brief NON_PREEMPTIVE macro definition */
 #define NON_PREEMPTIVE OSEK_ENABLE
@@ -349,19 +349,19 @@ extern const AutoStartType AutoStart[1];
 extern const TaskPriorityType ResourcesPriority[0];
 
 /** \brief Ready Const List */
-extern const ReadyConstType ReadyConst[2];
+extern const ReadyConstType ReadyConst[1];
 
 /** \brief Ready Variable List */
-extern ReadyVarType ReadyVar[2];
+extern ReadyVarType ReadyVar[1];
 
 /** \brief Resources Priorities */
 extern const TaskPriorityType ResourcesPriority[0];
 
 /** \brief Alarms Variable Structure */
-extern AlarmVarType AlarmsVar[4];
+extern AlarmVarType AlarmsVar[0];
 
 /** \brief Alarms Constant Structure */
-extern const AlarmConstType AlarmsConst[4];
+extern const AlarmConstType AlarmsConst[0];
 
 /** \brief Alarms Constant Structure */
 extern const AutoStartAlarmType AutoStartAlarm[ALARM_AUTOSTART_COUNT];
@@ -372,6 +372,12 @@ extern CounterVarType CountersVar[1];
 /** \brief Counter Const Structure */
 extern const CounterConstType CountersConst[1];
 /*==================[external functions declaration]=========================*/
+/** \brief Interrupt Cat 2 ISR_EXT0
+ **/
+extern void OSEK_ISR2_ISR_EXT0(void);
+/** \brief Interrupt Cat 2 ISR_EXT1
+ **/
+extern void OSEK_ISR2_ISR_EXT1(void);
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */
