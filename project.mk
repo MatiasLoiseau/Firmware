@@ -40,15 +40,22 @@
 
 #projects
 
+#Various projects
 #PROJECT = projects/mi_nuevo_proyecto
-#PROJECT = projects/c8_ejercicio_8_osek_v3
 #PROJECT = projects/gpio_blinky
-#PROJECT = projects/ejercicio14_osek
-#PROJECT = projects/c10_ej23_delay_osek
-#PROJECT = projects/ej4osek_carlos
 #PROJECT = projects/pruebas_task
+
+#My projects CAPSE OSEK
+#PROJECT = projects/ej4osek_carlos
+#PROJECT = projects/ejercicio14_osek
+PROJECT = projects/ejercicio18_osek
+#PROJECT = projects/isr_gpio_osek
+
+#Examples and exercises in class in CAPSE OSEK
+#PROJECT = projects/c8_ejercicio_8_osek_v3
+#PROJECT = projects/c10_ej23_delay_osek
 #PROJECT = projects/c12_ej25_mauricio_mod
-PROJECT = projects/c13_freeOSEK_isr1
+#PROJECT = projects/c13_freeOSEK_isr1
 #PROJECT = projects/c13_freeOSEK_isr1_propio_generador
 
 
