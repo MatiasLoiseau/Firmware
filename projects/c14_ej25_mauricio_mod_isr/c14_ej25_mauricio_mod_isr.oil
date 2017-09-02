@@ -1,0 +1,80 @@
+OSEK OSEK {
+
+   OS	ExampleOS {
+      STATUS = EXTENDED;
+      ERRORHOOK = TRUE;
+      PRETASKHOOK = FALSE;
+      POSTTASKHOOK = FALSE;
+      STARTUPHOOK = TRUE;
+      SHUTDOWNHOOK = FALSE;
+      USERESSCHEDULER = FALSE;
+      MEMMAP = FALSE;
+   };
+//---------------------------------
+   APPMODE = AppMode1;
+   EVENT = EventoDelay; 
+   
+   RESOURCE = AccesoAParametros;
+//---------------------------------
+
+// Periodica blink
+   TASK  Tarea_A {
+      PRIORITY = 2;
+      ACTIVATION = 1;
+      STACK = 512;
+      SCHEDULE = NON;
+      TYPE = EXTENDED;
+      EVENT = EventoDelay;
+      
+      RESOURCE = AccesoAParametros;
+   } 
+
+// escanea UART
+   TASK  Tarea_B {
+      PRIORITY = 1;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON;
+      
+      RESOURCE = AccesoAParametros;
+   } 
+ //---------------------------------
+   //esta es la que genera el Periodo 
+   ALARM Alarma_Tarea_A  {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = Tarea_A;
+      }
+      AUTOSTART = TRUE {
+      	APPMODE = AppMode1;
+      	ALARMTIME = 0;
+      	CYCLETIME = 1000;
+      }
+   }   
+
+   
+ //alarma que despierta el wait
+    ALARM AlarmaDC {   
+      COUNTER = HardwareCounter;
+      ACTION = SETEVENT {
+         TASK = Tarea_A;
+         EVENT = EventoDelay;
+      }
+   }
+
+   	ISR uart_usb { 
+		CATEGORY = 2; 
+		INTERRUPT = UART2; 
+		PRIORITY = 0; 
+  	} 
+
+ //-----------------------------   
+   COUNTER HardwareCounter {
+      MAXALLOWEDVALUE = 100000;
+      TICKSPERBASE = 1;
+      MINCYCLE = 1;
+      TYPE = HARDWARE;
+   };
+
+};

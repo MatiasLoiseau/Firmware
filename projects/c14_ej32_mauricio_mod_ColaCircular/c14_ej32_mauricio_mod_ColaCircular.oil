@@ -1,0 +1,81 @@
+OSEK OSEK {
+
+   OS	ExampleOS {
+      STATUS = EXTENDED;
+      ERRORHOOK = TRUE;
+      PRETASKHOOK = FALSE;
+      POSTTASKHOOK = FALSE;
+      STARTUPHOOK = TRUE;
+      SHUTDOWNHOOK = FALSE;
+      USERESSCHEDULER = FALSE;
+      MEMMAP = FALSE;
+   };
+
+   APPMODE = AppMode1;
+   EVENT=EventoLee;
+   EVENT=EventoEsc;
+   EVENT=EventoHayLugar;
+   EVENT=EventoMasDatos;
+   
+      TASK TareaUART {
+      PRIORITY = 20;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON;
+   } ;
+      
+   TASK CCIngresaD {
+      PRIORITY = 3;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = EXTENDED;
+      EVENT=EventoEsc;
+      EVENT=EventoHayLugar;
+      SCHEDULE = NON;
+      AUTOSTART = TRUE {
+         APPMODE = AppMode1;
+      }
+   } ;
+   
+   TASK CCSacaD {
+      PRIORITY = 10;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = EXTENDED;
+      EVENT=EventoLee;
+      EVENT=EventoMasDatos;
+      SCHEDULE = NON;
+      AUTOSTART = TRUE {
+         APPMODE = AppMode1;
+      }
+   } ;
+   
+   TASK CCInicia {
+      PRIORITY = 30;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON;
+   } ;
+   
+//esta es la que barre la UART
+   ALARM Alarma_Tarea_UART  {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = TareaUART;
+      }
+      AUTOSTART = TRUE {
+      	APPMODE = AppMode1;
+      	ALARMTIME = 0;
+      	CYCLETIME = 40;
+      }
+   }
+   COUNTER HardwareCounter {
+      MAXALLOWEDVALUE = 1000000;
+      TICKSPERBASE = 1;
+      MINCYCLE = 1;
+      TYPE = HARDWARE;
+   }
+
+}
