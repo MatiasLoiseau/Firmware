@@ -1,0 +1,65 @@
+OSEK OSEK {
+
+   OS	ExampleOS {
+      STATUS = EXTENDED;
+      ERRORHOOK = TRUE;
+      PRETASKHOOK = FALSE;
+      POSTTASKHOOK = FALSE;
+      STARTUPHOOK = TRUE;
+      SHUTDOWNHOOK = FALSE;
+      USERESSCHEDULER = FALSE;
+      MEMMAP = FALSE;
+   };
+
+   APPMODE = AppMode1;
+
+   TASK ReadUART {
+      PRIORITY = 1;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON;
+      
+   }
+
+   TASK BlinkLed {
+      PRIORITY = 1;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON;
+   }
+
+   ALARM ActivateReadUART {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = ReadUART;
+      }
+      AUTOSTART = TRUE {
+      	APPMODE = AppMode1;
+      	ALARMTIME = 0;
+      	CYCLETIME = 100;
+      }
+   }
+
+   ALARM ActivateBlinkLed {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = BlinkLed;
+      }
+      AUTOSTART = TRUE {
+         APPMODE = AppMode1;
+         ALARMTIME = 0;
+         CYCLETIME = 500;
+      }
+   }
+
+   COUNTER HardwareCounter {
+      MAXALLOWEDVALUE = 1000;
+      TICKSPERBASE = 1;
+      MINCYCLE = 1;
+      TYPE = HARDWARE;
+      COUNTER = HWCOUNTER0;
+   };
+
+};
