@@ -20,7 +20,7 @@ teclasMEFStruct_t tecla_2 = {TEC2, teclaINICIAR_MEF};
 
 uint32_t tickCount = 0;
 
-uint8_t flag_tecla_1 = 0;
+uint8_t flag_tecla_1 = 0; //No muestra por pantalla si no apreta la TEC1 primero que la TEC2
 
 /*==================[definiciones de datos externos]=========================*/
 
@@ -64,23 +64,24 @@ TASK(ReadTecs){
 	teclasMEFUpdate (&tecla_2);
 
 	if(tecla_1.teclaEstadoMEF == teclaJUST_DOWN){
-		flag_tecla_1 = 0;
-	}
-	if(tecla_1.teclaEstadoMEF == teclaJUST_UP){
-		flag_tecla_1 = 1;
-        SetRelAlarm(ActivateTickCounter, 0, 50);
         uartWriteString( UART_USB, "  Timer started by TEC1\n");
+		SetRelAlarm(ActivateTickCounter, 0, 50);
+		flag_tecla_1 = 1;
 	}
 	if(tecla_2.teclaEstadoMEF == teclaJUST_DOWN){
 		CancelAlarm(ActivateTickCounter);
 		uartWriteString( UART_USB, "  Timer ended by TEC2\n");
 	}
 	if(tecla_2.teclaEstadoMEF == teclaJUST_UP){
-		uint8_t uartBuff[10];
-		itoa( (int) tickCount, (char*)uartBuff, 10 ); /* 10 significa decimal */
-		uartWriteString( UART_USB, uartBuff);
-		uartWriteString( UART_USB, "  ms");
-		tickCount = 0;
+		if(flag_tecla_1 == 1){
+			uint8_t uartBuff[10];
+			tickCount = tickCount * 50;	//Need to pass to MiliSeconds
+			itoa( (int) tickCount, (char*)uartBuff, 10 ); /* 10 significa decimal */
+			uartWriteString( UART_USB, uartBuff);
+			uartWriteString( UART_USB, "  ms");
+			tickCount = 0;
+			flag_tecla_1 = 0;
+		}
 	}
    TerminateTask();
 }
