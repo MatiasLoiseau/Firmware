@@ -1,0 +1,83 @@
+OSEK OSEK {
+
+   OS	ExampleOS {
+      STATUS = EXTENDED;
+      ERRORHOOK = TRUE;
+      PRETASKHOOK = FALSE;
+      POSTTASKHOOK = FALSE;
+      STARTUPHOOK = TRUE;
+      SHUTDOWNHOOK = FALSE;
+      USERESSCHEDULER = FALSE;
+      MEMMAP = FALSE;
+   };
+
+   APPMODE = AppMode1;
+      
+// llamada desde alarma ciclica
+   TASK TareaTeclado {
+      PRIORITY = 3;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON;
+   } ;
+   
+ // llamada desde alarma ciclica
+   TASK TareaImprime {
+      PRIORITY = 3;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON;
+   } ;
+   
+   //barrido de teclado para antidebouce
+   ALARM AlarmaTeclado {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = TareaTeclado;
+      }
+   }
+ //escupe datos por uart
+   ALARM AlamarImprime {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = TareaImprime;
+      }
+      AUTOSTART = TRUE {
+      	APPMODE = AppMode1;
+      	ALARMTIME = 0;
+      	CYCLETIME = 2000;
+      }
+   }
+   
+    ISR  ISR_Tec1{ 
+		CATEGORY = 2; 
+		INTERRUPT = GPIO0; 
+		PRIORITY = 0; 
+  	}
+ 
+    ISR  ISR_Tec2{ 
+		CATEGORY = 2; 
+		INTERRUPT = GPIO1; 
+		PRIORITY = 0; 
+  	}
+    ISR  ISR_Tec3{ 
+		CATEGORY = 2; 
+		INTERRUPT = GPIO2; 
+		PRIORITY = 0; 
+  	}
+    ISR  ISR_Tec4{ 
+		CATEGORY = 2; 
+		INTERRUPT = GPIO3; 
+		PRIORITY = 0; 
+  	}
+    
+   COUNTER HardwareCounter {
+      MAXALLOWEDVALUE = 1000000;
+      TICKSPERBASE = 1;
+      MINCYCLE = 1;
+      TYPE = HARDWARE;
+   }
+
+}
