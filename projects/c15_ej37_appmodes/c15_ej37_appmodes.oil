@@ -1,0 +1,129 @@
+OSEK OSEK {
+
+   OS	ExampleOS {
+      STATUS = EXTENDED;
+      ERRORHOOK = TRUE;
+      PRETASKHOOK = FALSE;
+      POSTTASKHOOK = FALSE;
+      STARTUPHOOK = TRUE;
+      SHUTDOWNHOOK = FALSE;
+      USERESSCHEDULER = FALSE;
+      MEMMAP = FALSE;
+   };
+//---------------------------------
+   APPMODE = AppModeA;
+   APPMODE = AppModeB;
+   
+   EVENT = EventoDelay; 
+   
+   RESOURCE = AccesoAParametros;
+   RESOURCE = AccesoGlobalIRQUart;
+//---------------------------------
+
+// Periodica blink
+   TASK  Tarea_LED {
+      PRIORITY = 2;
+      ACTIVATION = 1;
+      STACK = 512;
+      SCHEDULE = NON;
+      TYPE = BASIC;
+   } 
+   
+    ALARM Alarma_Tarea_LED {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = Tarea_LED;
+      }
+      AUTOSTART = TRUE {
+        APPMODE = AppModeA;
+      	APPMODE = AppModeB;      	
+      	ALARMTIME = 0;
+      	CYCLETIME = 1000;
+      }
+   }
+   
+    TASK  Tarea_Teclas {
+      PRIORITY = 2;
+      ACTIVATION = 1;
+      STACK = 512;
+      SCHEDULE = NON;
+      TYPE = BASIC;
+   } 
+
+    ALARM Alarma_Tarea_Teclas {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = Tarea_Teclas;
+      }
+      AUTOSTART = TRUE {
+      	APPMODE = AppModeB;
+      	ALARMTIME = 0;
+      	CYCLETIME = 30;
+      }
+   } 
+   
+   TASK  Tarea_ReporteActividad {
+      PRIORITY = 2;
+      ACTIVATION = 1;
+      STACK = 512;
+      SCHEDULE = NON;
+      TYPE = BASIC;
+   } 
+   
+   ALARM Alarma_Tarea_ReporteActividad {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = Tarea_ReporteActividad;
+      }
+      AUTOSTART = TRUE {
+      	APPMODE = AppModeA;
+      	ALARMTIME = 0;
+      	CYCLETIME = 2000;
+      }
+   }
+   
+   
+// Llamada desde ISR( uart_usb )
+   TASK  Tarea_AccionProtocolo {
+      PRIORITY = 1;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON; 
+      RESOURCE = AccesoGlobalIRQUart;
+   } 
+   
+   // Llamada desde Alarma time out de rx
+   TASK  rxTimeOUT {
+      PRIORITY = 1;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = BASIC;
+      SCHEDULE = NON;
+   }
+     
+   
+ //alarma rx timeout
+    ALARM rxTimeOut {   
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {               //Activar una tarea
+		TASK = rxTimeOUT ;
+	}
+	
+   }
+   	ISR uart_usb { 
+		CATEGORY = 2; 
+		INTERRUPT = UART2; 
+		PRIORITY = 0; 
+		RESOURCE = AccesoGlobalIRQUart;
+  	} 
+
+ //-----------------------------   
+   COUNTER HardwareCounter {
+      MAXALLOWEDVALUE = 100000;
+      TICKSPERBASE = 1;
+      MINCYCLE = 1;
+      TYPE = HARDWARE;
+   };
+
+};
