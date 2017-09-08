@@ -80,15 +80,29 @@
 #define OSEK_OS_INTERRUPT_MASK ((InterruptFlagsType)0xFFFFFFFFU)
 
 /** \brief Task Definition */
-#define BlinkLed1 0
+#define Tarea_A 0
+/** \brief Task Definition */
+#define Tarea_B 1
+/** \brief Task Definition */
+#define rxTimeOUT 2
 
 /** \brief Definition of the Application Mode AppMode1 */
 #define AppMode1 0
 
+/** \brief Definition of the Event EventoDelay */
+#define EventoDelay 0x1U
 
+/** \brief Definition of the resource AccesoAParametros */
+#define AccesoAParametros ((ResourceType)0)
+/** \brief Definition of the resource AccesoGlobalIRQUart */
+#define AccesoGlobalIRQUart ((ResourceType)1)
 
-/** \brief Definition of the Alarm ActivateBlinkLed1 */
-#define ActivateBlinkLed1 0
+/** \brief Definition of the Alarm Alarma_Tarea_A */
+#define Alarma_Tarea_A 0
+/** \brief Definition of the Alarm AlarmaDC */
+#define AlarmaDC 1
+/** \brief Definition of the Alarm rxTimeOut */
+#define rxTimeOut 2
 
 /** \brief Definition of the Counter HardwareCounter */
 #define HardwareCounter 0
@@ -180,11 +194,15 @@ extern void StartupHook(void);
 /** \brief Error Hook */
 extern void ErrorHook(void);
 
-/** \brief Task Declaration of Task BlinkLed1 */
-DeclareTask(BlinkLed1);
+/** \brief Task Declaration of Task Tarea_A */
+DeclareTask(Tarea_A);
+/** \brief Task Declaration of Task Tarea_B */
+DeclareTask(Tarea_B);
+/** \brief Task Declaration of Task rxTimeOUT */
+DeclareTask(rxTimeOUT);
 
 /** \brief ISR Declaration */
-extern void OSEK_ISR_ISRtec(void); /* Interrupt Handler ISRtec */
+extern void OSEK_ISR_uart_usb(void); /* Interrupt Handler uart_usb */
 
 
 /** \brief Schedule this Task if higher priority Task are Active

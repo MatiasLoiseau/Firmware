@@ -189,19 +189,19 @@ extern unsigned int Osek_ErrorRet;
 
 /*==================[external functions declaration]=========================*/
 /** \brief Startup Hook */
-extern void StartupHook( void );
+extern void StartupHook(void);
 
 /** \brief Error Hook */
-extern void ErrorHook( void );
+extern void ErrorHook(void);
 
 /** \brief Task Declaration of Task TareaUART */
-DeclareTask( TareaUART );
+DeclareTask(TareaUART);
 /** \brief Task Declaration of Task CCIngresaD */
-DeclareTask( CCIngresaD );
+DeclareTask(CCIngresaD);
 /** \brief Task Declaration of Task CCSacaD */
-DeclareTask( CCSacaD );
+DeclareTask(CCSacaD);
 /** \brief Task Declaration of Task CCInicia */
-DeclareTask( CCInicia );
+DeclareTask(CCInicia);
 
 
 
@@ -226,7 +226,7 @@ DeclareTask( CCInicia );
  ** \return E_OS_CALLEVEL if call at interrupt level
  ** \return E_OS_RESOURCE if the calling task occupies resources
  **/
-extern StatusType Schedule_Int( boolean PerformChecks );
+extern StatusType Schedule_Int(boolean PerformChecks);
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */

@@ -113,9 +113,9 @@ typedef TaskContextType* TaskContextRefType;
 
 /*==================[external functions declaration]=========================*/
 
-void Enable_User_ISRs( void );
-void Enable_ISR2_Arch( void );
-void Disable_ISR2_Arch( void );
+void Enable_User_ISRs(void);
+void Enable_ISR2_Arch(void);
+void Disable_ISR2_Arch(void);
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */

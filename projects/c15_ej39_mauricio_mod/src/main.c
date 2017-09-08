@@ -18,8 +18,6 @@ Tarea A: Enciende el led con DC y Periodo manejado por tarea A
 uint32_t Periodo = 1000;
 uint32_t DC		 = 500;
 
-
-
 /*==================[definiciones de datos externos]=========================*/
 
 /*==================[declaraciones de funciones internas]====================*/

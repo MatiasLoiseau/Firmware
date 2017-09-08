@@ -82,13 +82,13 @@
 #define ERROR_CHECKING_EXTENDED   2
 
 /** \brief Count of task */
-#define TASKS_COUNT 1U
+#define TASKS_COUNT 3U
 
 /** \brief Remote tasks count */
 #define REMOTE_TASKS_COUNT 0U
 
 /** \brief Count of resources */
-#define RESOURCES_COUNT 0
+#define RESOURCES_COUNT 2
 
 /** \brief Error Checking Type */
 #define ERROR_CHECKING_TYPE ERROR_CHECKING_EXTENDED
@@ -103,7 +103,7 @@
 /** \brief shutdown hook enable-disable macro */
 #define HOOK_SHUTDOWNHOOK OSEK_DISABLE
 
-#define READYLISTS_COUNT 1
+#define READYLISTS_COUNT 2
 #define SetError_Api(api)   ( Osek_ErrorApi = (api) )
 #define SetError_Param1(param1) ( Osek_ErrorParam1 = (param1) )
 #define SetError_Param2(param2) ( Osek_ErrorParam2 = (param2) )
@@ -122,13 +122,13 @@
 
 #define OSEK_COUNTER_HardwareCounter 0
 /** \brief ALARMS_COUNT define */
-#define ALARMS_COUNT 1
+#define ALARMS_COUNT 3
 
 /** \brief NON_PREEMPTIVE macro definition */
 #define NON_PREEMPTIVE OSEK_ENABLE
 
 /** \brief NO_EVENTS macro definition */
-#define NO_EVENTS OSEK_ENABLE
+#define NO_EVENTS OSEK_DISABLE
 
 /** \brief NO_RES_SCHEDULER macro definition */
 #define NO_RES_SCHEDULER OSEK_ENABLE
@@ -346,22 +346,22 @@ extern uint8 ApplicationMode;
 extern const AutoStartType AutoStart[1];
 
 /** \brief Resources Priorities */
-extern const TaskPriorityType ResourcesPriority[0];
+extern const TaskPriorityType ResourcesPriority[2];
 
 /** \brief Ready Const List */
-extern const ReadyConstType ReadyConst[1];
+extern const ReadyConstType ReadyConst[2];
 
 /** \brief Ready Variable List */
-extern ReadyVarType ReadyVar[1];
+extern ReadyVarType ReadyVar[2];
 
 /** \brief Resources Priorities */
-extern const TaskPriorityType ResourcesPriority[0];
+extern const TaskPriorityType ResourcesPriority[2];
 
 /** \brief Alarms Variable Structure */
-extern AlarmVarType AlarmsVar[1];
+extern AlarmVarType AlarmsVar[3];
 
 /** \brief Alarms Constant Structure */
-extern const AlarmConstType AlarmsConst[1];
+extern const AlarmConstType AlarmsConst[3];
 
 /** \brief Alarms Constant Structure */
 extern const AutoStartAlarmType AutoStartAlarm[ALARM_AUTOSTART_COUNT];
@@ -372,9 +372,9 @@ extern CounterVarType CountersVar[1];
 /** \brief Counter Const Structure */
 extern const CounterConstType CountersConst[1];
 /*==================[external functions declaration]=========================*/
-/** \brief Interrupt Cat 2 ISRtec
+/** \brief Interrupt Cat 2 uart_usb
  **/
-extern void OSEK_ISR2_ISRtec(void);
+extern void OSEK_ISR2_uart_usb(void);
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */

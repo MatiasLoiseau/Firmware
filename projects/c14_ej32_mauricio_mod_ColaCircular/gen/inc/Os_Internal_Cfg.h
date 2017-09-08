@@ -137,11 +137,10 @@
 /*==================[typedef]================================================*/
 typedef unsigned char TaskPriorityType;
 
-typedef struct
-{
-    unsigned int Extended : 1;
-    unsigned int Preemtive : 1;
-    unsigned int State : 2;
+typedef struct {
+   unsigned int Extended : 1;
+   unsigned int Preemtive : 1;
+   unsigned int State : 2;
 } TaskFlagsType;
 
 typedef uint8 TaskActivationsType;
@@ -154,9 +153,9 @@ typedef uint8* StackPtrType;
 
 typedef uint16 StackSizeType;
 
-typedef void ( * EntryPointType )( void );
+typedef void (* EntryPointType)(void);
 
-typedef void ( * CallbackType )( void );
+typedef void (* CallbackType)(void);
 
 typedef uint8 TaskTotalType;
 
@@ -171,18 +170,17 @@ typedef uint8 TaskCoreType;
  ** \param Priority static priority of this task
  ** \param MaxActivations maximal activations for this task
  **/
-typedef struct
-{
-    EntryPointType EntryPoint;
-    TaskContextRefType TaskContext;
-    StackPtrType StackPtr;
-    StackSizeType StackSize;
-    TaskPriorityType StaticPriority;
-    TaskActivationsType MaxActivations;
-    TaskFlagsType ConstFlags;
-    TaskEventsType EventsMask;
-    TaskResourcesType ResourcesMask;
-    TaskCoreType TaskCore;
+typedef struct {
+   EntryPointType EntryPoint;
+   TaskContextRefType TaskContext;
+   StackPtrType StackPtr;
+   StackSizeType StackSize;
+   TaskPriorityType StaticPriority;
+   TaskActivationsType MaxActivations;
+   TaskFlagsType ConstFlags;
+   TaskEventsType EventsMask;
+   TaskResourcesType ResourcesMask;
+   TaskCoreType TaskCore;
 } TaskConstType;
 
 /** \brief Task Variable type definition
@@ -195,14 +193,13 @@ typedef struct
  ** \param Events of this task
  ** \param Resource of this task
  **/
-typedef struct
-{
-    TaskPriorityType ActualPriority;
-    TaskActivationsType Activations;
-    TaskFlagsType Flags;
-    TaskEventsType Events;
-    TaskEventsType EventsWait;
-    TaskResourcesType Resources;
+typedef struct {
+   TaskPriorityType ActualPriority;
+   TaskActivationsType Activations;
+   TaskFlagsType Flags;
+   TaskEventsType Events;
+   TaskEventsType EventsWait;
+   TaskResourcesType Resources;
 } TaskVariableType;
 
 /** \brief Auto Start Structure Type
@@ -210,10 +207,9 @@ typedef struct
  ** \param Total taks on this application mode
  ** \param Reference to the tasks on this Application Mode
  **/
-typedef struct
-{
-    TaskTotalType TotalTasks;
-    TaskRefType TasksRef;
+typedef struct {
+   TaskTotalType TotalTasks;
+   TaskRefType TasksRef;
 } AutoStartType;
 
 /** \brief Ready List Constatn Type
@@ -221,10 +217,9 @@ typedef struct
  ** \param ListLength Lenght of the Ready List
  ** \param TaskRef Reference to the Ready Array for this Priority
  **/
-typedef struct
-{
-    TaskTotalType ListLength;
-    TaskRefType TaskRef;
+typedef struct {
+   TaskTotalType ListLength;
+   TaskRefType TaskRef;
 } ReadyConstType;
 
 /** \brief Ready List Variable Type
@@ -232,10 +227,9 @@ typedef struct
  ** \param ListStart first valid componet on the list
  ** \param ListCount count of valid components on this list
  **/
-typedef struct
-{
-    TaskTotalType ListStart;
-    TaskTotalType ListCount;
+typedef struct {
+   TaskTotalType ListStart;
+   TaskTotalType ListCount;
 } ReadyVarType;
 
 /** \brief Alarm State
@@ -262,63 +256,56 @@ typedef uint32f CounterIncrementType;
 typedef uint32f AlarmIncrementType;
 
 /** \brief Alarm Action Type */
-typedef enum
-{
-    ALARMCALLBACK = 0,
-    SETEVENT = 1,
-    ACTIVATETASK = 2,
-    INCREMENT = 3
+typedef enum {
+   ALARMCALLBACK = 0,
+   SETEVENT = 1,
+   ACTIVATETASK = 2,
+   INCREMENT = 3
 } AlarmActionType;
 
 /** \brief Alarm Action Info Type
  **
  ** This type has extra information of the Alarm action
  **/
-typedef struct
-{
-    CallbackType CallbackFunction;
-    TaskType TaskID;
-    EventMaskType Event;
-    CounterType Counter;
+typedef struct {
+   CallbackType CallbackFunction;
+   TaskType TaskID;
+   EventMaskType Event;
+   CounterType Counter;
 } AlarmActionInfoType;
 
 /** \brief Alarm Variable Type */
-typedef struct
-{
-    AlarmStateType AlarmState;
-    AlarmTimeType AlarmTime;
-    AlarmCycleTimeType AlarmCycleTime;
+typedef struct {
+   AlarmStateType AlarmState;
+   AlarmTimeType AlarmTime;
+   AlarmCycleTimeType AlarmCycleTime;
 } AlarmVarType;
 
 /** \brief Alarm Constant Type */
-typedef struct
-{
-    CounterType Counter;
-    AlarmActionType AlarmAction;
-    AlarmActionInfoType AlarmActionInfo;
+typedef struct {
+   CounterType Counter;
+   AlarmActionType AlarmAction;
+   AlarmActionInfoType AlarmActionInfo;
 } AlarmConstType;
 
 /** \brief Auto Start Alarm Type */
-typedef struct
-{
-    AppModeType Mode;
-    AlarmType Alarm;
-    AlarmTimeType AlarmTime;
-    AlarmCycleTimeType AlarmCycleTime;
+typedef struct {
+   AppModeType Mode;
+   AlarmType Alarm;
+   AlarmTimeType AlarmTime;
+   AlarmCycleTimeType AlarmCycleTime;
 } AutoStartAlarmType;
 
-typedef struct
-{
-    uint8   AlarmsCount;
-    AlarmType* AlarmRef;
-    TickType MaxAllowedValue;
-    TickType MinCycle;
-    TickType TicksPerBase;
+typedef struct {
+   uint8   AlarmsCount;
+   AlarmType* AlarmRef;
+   TickType MaxAllowedValue;
+   TickType MinCycle;
+   TickType TicksPerBase;
 } CounterConstType;
 
-typedef struct
-{
-    TickType Time;
+typedef struct {
+   TickType Time;
 } CounterVarType;
 
 /*==================[external data declaration]==============================*/

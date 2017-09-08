@@ -77,21 +77,42 @@
 /*==================[internal functions declaration]=========================*/
 
 /*==================[internal data definition]===============================*/
-/** \brief BlinkLed1 stack */
+/** \brief Tarea_A stack */
 #if ( x86 == ARCH )
-uint8 StackTaskBlinkLed1[512 + TASK_STACK_ADDITIONAL_SIZE];
+uint8 StackTaskTarea_A[512 + TASK_STACK_ADDITIONAL_SIZE];
 #else
-uint8 StackTaskBlinkLed1[512];
+uint8 StackTaskTarea_A[512];
+#endif
+/** \brief Tarea_B stack */
+#if ( x86 == ARCH )
+uint8 StackTaskTarea_B[512 + TASK_STACK_ADDITIONAL_SIZE];
+#else
+uint8 StackTaskTarea_B[512];
+#endif
+/** \brief rxTimeOUT stack */
+#if ( x86 == ARCH )
+uint8 StackTaskrxTimeOUT[512 + TASK_STACK_ADDITIONAL_SIZE];
+#else
+uint8 StackTaskrxTimeOUT[512];
 #endif
 
-/** \brief BlinkLed1 context */
-TaskContextType ContextTaskBlinkLed1;
+/** \brief Tarea_A context */
+TaskContextType ContextTaskTarea_A;
+/** \brief Tarea_B context */
+TaskContextType ContextTaskTarea_B;
+/** \brief rxTimeOUT context */
+TaskContextType ContextTaskrxTimeOUT;
+
+/** \brief Ready List for Priority 1 */
+TaskType ReadyList1[1];
 
 /** \brief Ready List for Priority 0 */
-TaskType ReadyList0[1];
+TaskType ReadyList0[2];
 
-const AlarmType OSEK_ALARMLIST_HardwareCounter[1] = {
-   ActivateBlinkLed1, /* this alarm has to be incremented with this counter */
+const AlarmType OSEK_ALARMLIST_HardwareCounter[3] = {
+   Alarma_Tarea_A, /* this alarm has to be incremented with this counter */
+   AlarmaDC, /* this alarm has to be incremented with this counter */
+   rxTimeOut, /* this alarm has to be incremented with this counter */
 };
 
 
@@ -102,16 +123,51 @@ const AlarmType OSEK_ALARMLIST_HardwareCounter[1] = {
  * priorities and the OpenOSE priorities:
  *
  * User P.         Osek P.
+ * 2               1
  * 1               0
  */
 
 const TaskConstType TasksConst[TASKS_COUNT] = {
-   /* Task BlinkLed1 */
+   /* Task Tarea_A */
    {
-       OSEK_TASK_BlinkLed1,   /* task entry point */
-       &ContextTaskBlinkLed1, /* pointer to task context */
-       StackTaskBlinkLed1, /* pointer stack memory */
-       sizeof(StackTaskBlinkLed1), /* stack size */
+       OSEK_TASK_Tarea_A,   /* task entry point */
+       &ContextTaskTarea_A, /* pointer to task context */
+       StackTaskTarea_A, /* pointer stack memory */
+       sizeof(StackTaskTarea_A), /* stack size */
+       1, /* task priority */
+       1, /* task max activations */
+       {
+         1, /* extended task */
+         0, /* non preemtive task */
+         0
+      }, /* task const flags */
+      0 | EventoDelay , /* events mask */
+      0 | ( 1 << AccesoAParametros ) ,/* resources mask */
+      0 /* core */
+   },
+   /* Task Tarea_B */
+   {
+       OSEK_TASK_Tarea_B,   /* task entry point */
+       &ContextTaskTarea_B, /* pointer to task context */
+       StackTaskTarea_B, /* pointer stack memory */
+       sizeof(StackTaskTarea_B), /* stack size */
+       0, /* task priority */
+       1, /* task max activations */
+       {
+         0, /* basic task */
+         0, /* non preemtive task */
+         0
+      }, /* task const flags */
+      0 , /* events mask */
+      0 | ( 1 << AccesoAParametros ) | ( 1 << AccesoGlobalIRQUart ) ,/* resources mask */
+      0 /* core */
+   },
+   /* Task rxTimeOUT */
+   {
+       OSEK_TASK_rxTimeOUT,   /* task entry point */
+       &ContextTaskrxTimeOUT, /* pointer to task context */
+       StackTaskrxTimeOUT, /* pointer stack memory */
+       sizeof(StackTaskrxTimeOUT), /* stack size */
        0, /* task priority */
        1, /* task max activations */
        {
@@ -140,32 +196,57 @@ const AutoStartType AutoStart[1]  = {
    }
 };
 
-const ReadyConstType ReadyConst[1] = { 
+const ReadyConstType ReadyConst[2] = { 
    {
       1, /* Length of this ready list */
+      ReadyList1 /* Pointer to the Ready List */
+   },
+   {
+      2, /* Length of this ready list */
       ReadyList0 /* Pointer to the Ready List */
    }
 };
 
 /** TODO replace next line with: 
- ** ReadyVarType ReadyVar[1] ; */
-ReadyVarType ReadyVar[1];
+ ** ReadyVarType ReadyVar[2] ; */
+ReadyVarType ReadyVar[2];
 
 /** \brief Resources Priorities */
-const TaskPriorityType ResourcesPriority[0]  = {
-
+const TaskPriorityType ResourcesPriority[2]  = {
+   1,
+   0
 };
 /** TODO replace next line with: 
- ** AlarmVarType AlarmsVar[1]; */
-AlarmVarType AlarmsVar[1];
+ ** AlarmVarType AlarmsVar[3]; */
+AlarmVarType AlarmsVar[3];
 
-const AlarmConstType AlarmsConst[1]  = {
+const AlarmConstType AlarmsConst[3]  = {
    {
       OSEK_COUNTER_HardwareCounter, /* Counter */
       ACTIVATETASK, /* Alarm action */
       {
          NULL, /* no callback */
-         BlinkLed1, /* TaskID */
+         Tarea_A, /* TaskID */
+         0, /* no event */
+         0 /* no counter */
+      },
+   },
+   {
+      OSEK_COUNTER_HardwareCounter, /* Counter */
+      SETEVENT, /* Alarm action */
+      {
+         NULL, /* no callback */
+         Tarea_A, /* TaskID */
+         EventoDelay, /* no event */
+         0 /* no counter */
+      },
+   },
+   {
+      OSEK_COUNTER_HardwareCounter, /* Counter */
+      ACTIVATETASK, /* Alarm action */
+      {
+         NULL, /* no callback */
+         rxTimeOUT, /* TaskID */
          0, /* no event */
          0 /* no counter */
       },
@@ -175,9 +256,9 @@ const AlarmConstType AlarmsConst[1]  = {
 const AutoStartAlarmType AutoStartAlarm[ALARM_AUTOSTART_COUNT] = {
   {
       AppMode1, /* Application Mode */
-      ActivateBlinkLed1, /* Alarms */
-      100, /* Alarm Time */
-      500 /* Alarm Time */
+      Alarma_Tarea_A, /* Alarms */
+      0, /* Alarm Time */
+      1000 /* Alarm Time */
    }
 };
 
@@ -185,9 +266,9 @@ CounterVarType CountersVar[1];
 
 const CounterConstType CountersConst[1] = {
    {
-      1, /* quantity of alarms for this counter */
+      3, /* quantity of alarms for this counter */
       (AlarmType*)OSEK_ALARMLIST_HardwareCounter, /* alarms list */
-      1000, /* max allowed value */
+      100000, /* max allowed value */
       1, /* min cycle */
       1 /* ticks per base */
    }
@@ -205,7 +286,7 @@ uint8 ErrorHookRunning;
 /*==================[internal functions definition]==========================*/
 
 /*==================[external functions definition]==========================*/
-void OSEK_ISR2_ISRtec(void)
+void OSEK_ISR2_uart_usb(void)
 {
    /* store the calling context in a variable */
    ContextType actualContext = GetCallingContext();
@@ -213,7 +294,7 @@ void OSEK_ISR2_ISRtec(void)
    SetActualContext(CONTEXT_ISR2);
 
    /* trigger isr 2 */
-   OSEK_ISR_ISRtec();
+   OSEK_ISR_uart_usb();
 
    /* reset context */
    SetActualContext(actualContext);

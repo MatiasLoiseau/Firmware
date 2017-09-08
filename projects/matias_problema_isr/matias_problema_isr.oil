@@ -1,0 +1,57 @@
+OSEK OSEK {
+
+   OS	ExampleOS {
+      STATUS = EXTENDED;
+      ERRORHOOK = TRUE;
+      PRETASKHOOK = FALSE;
+      POSTTASKHOOK = FALSE;
+      STARTUPHOOK = TRUE;
+      SHUTDOWNHOOK = FALSE;
+      USERESSCHEDULER = FALSE;
+      MEMMAP = FALSE;
+   };
+
+   EVENT = EventoDelay;
+
+   APPMODE = AppMode1;
+
+   TASK ReadUART {
+      PRIORITY = 1;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = EXTENDED;
+      SCHEDULE = FULL;
+      
+   }
+
+   TASK BlinkLed {
+      PRIORITY = 2;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = EXTENDED;
+      SCHEDULE = FULL;
+   }
+
+   ALARM ActivateBlinkLed {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = BlinkLed;
+      }
+   }
+
+   	ISR uart_usb { 
+		CATEGORY = 2; 
+		INTERRUPT = UART2; 
+		PRIORITY = 0; 
+  	} 
+
+
+   COUNTER HardwareCounter {
+      MAXALLOWEDVALUE = 1000;
+      TICKSPERBASE = 1;
+      MINCYCLE = 1;
+      TYPE = HARDWARE;
+      COUNTER = HWCOUNTER0;
+   };
+
+};

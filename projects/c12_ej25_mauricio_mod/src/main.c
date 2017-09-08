@@ -76,7 +76,7 @@ TASK( Tarea_A )
     {
         gpioWrite( LED3,OFF );
         gpioWrite( LEDR,OFF );
-        gpioWrite( LEDG,OFF );
+        gpioWrite( LEDG,OFF 																																																														);
     }
 
     //SetEvent(Tarea_B,  ChangeParams); //evaluar sincronizar tareas con WaitEvent

@@ -38,7 +38,7 @@ PROJECT_MODULES := modules/$(TARGET)/sapi_rtos \
                    modules/$(TARGET)/osek \
                    modules/$(TARGET)/base \
                    modules/$(TARGET)/board \
-                   modules/$(TARGET)/chip \
+                   modules/$(TARGET)/chip
 
 # source files folder
 PROJECT_SRC_FOLDERS := $(PROJECT)/src
