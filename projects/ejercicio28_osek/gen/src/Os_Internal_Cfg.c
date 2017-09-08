@@ -83,24 +83,45 @@ uint8 StackTaskReadUART[512 + TASK_STACK_ADDITIONAL_SIZE];
 #else
 uint8 StackTaskReadUART[512];
 #endif
-/** \brief BlinkLed stack */
+/** \brief ModoOperativo stack */
 #if ( x86 == ARCH )
-uint8 StackTaskBlinkLed[512 + TASK_STACK_ADDITIONAL_SIZE];
+uint8 StackTaskModoOperativo[512 + TASK_STACK_ADDITIONAL_SIZE];
 #else
-uint8 StackTaskBlinkLed[512];
+uint8 StackTaskModoOperativo[512];
+#endif
+/** \brief ModoServicio stack */
+#if ( x86 == ARCH )
+uint8 StackTaskModoServicio[512 + TASK_STACK_ADDITIONAL_SIZE];
+#else
+uint8 StackTaskModoServicio[512];
+#endif
+/** \brief ModoNoche stack */
+#if ( x86 == ARCH )
+uint8 StackTaskModoNoche[512 + TASK_STACK_ADDITIONAL_SIZE];
+#else
+uint8 StackTaskModoNoche[512];
 #endif
 
 /** \brief ReadUART context */
 TaskContextType ContextTaskReadUART;
-/** \brief BlinkLed context */
-TaskContextType ContextTaskBlinkLed;
+/** \brief ModoOperativo context */
+TaskContextType ContextTaskModoOperativo;
+/** \brief ModoServicio context */
+TaskContextType ContextTaskModoServicio;
+/** \brief ModoNoche context */
+TaskContextType ContextTaskModoNoche;
+
+/** \brief Ready List for Priority 1 */
+TaskType ReadyList1[1];
 
 /** \brief Ready List for Priority 0 */
-TaskType ReadyList0[2];
+TaskType ReadyList0[3];
 
-const AlarmType OSEK_ALARMLIST_HardwareCounter[2] = {
+const AlarmType OSEK_ALARMLIST_HardwareCounter[4] = {
    ActivateReadUART, /* this alarm has to be incremented with this counter */
-   ActivateBlinkLed, /* this alarm has to be incremented with this counter */
+   ActivateModoOperativo, /* this alarm has to be incremented with this counter */
+   ActivateModoServicio, /* this alarm has to be incremented with this counter */
+   ActivateModoNoche, /* this alarm has to be incremented with this counter */
 };
 
 
@@ -111,6 +132,7 @@ const AlarmType OSEK_ALARMLIST_HardwareCounter[2] = {
  * priorities and the OpenOSE priorities:
  *
  * User P.         Osek P.
+ * 2               1
  * 1               0
  */
 
@@ -121,7 +143,7 @@ const TaskConstType TasksConst[TASKS_COUNT] = {
        &ContextTaskReadUART, /* pointer to task context */
        StackTaskReadUART, /* pointer stack memory */
        sizeof(StackTaskReadUART), /* stack size */
-       0, /* task priority */
+       1, /* task priority */
        1, /* task max activations */
        {
          0, /* basic task */
@@ -132,17 +154,51 @@ const TaskConstType TasksConst[TASKS_COUNT] = {
       0 ,/* resources mask */
       0 /* core */
    },
-   /* Task BlinkLed */
+   /* Task ModoOperativo */
    {
-       OSEK_TASK_BlinkLed,   /* task entry point */
-       &ContextTaskBlinkLed, /* pointer to task context */
-       StackTaskBlinkLed, /* pointer stack memory */
-       sizeof(StackTaskBlinkLed), /* stack size */
+       OSEK_TASK_ModoOperativo,   /* task entry point */
+       &ContextTaskModoOperativo, /* pointer to task context */
+       StackTaskModoOperativo, /* pointer stack memory */
+       sizeof(StackTaskModoOperativo), /* stack size */
        0, /* task priority */
        1, /* task max activations */
        {
-         0, /* basic task */
-         0, /* non preemtive task */
+         1, /* extended task */
+         1, /* preemtive task */
+         0
+      }, /* task const flags */
+      0 , /* events mask */
+      0 ,/* resources mask */
+      0 /* core */
+   },
+   /* Task ModoServicio */
+   {
+       OSEK_TASK_ModoServicio,   /* task entry point */
+       &ContextTaskModoServicio, /* pointer to task context */
+       StackTaskModoServicio, /* pointer stack memory */
+       sizeof(StackTaskModoServicio), /* stack size */
+       0, /* task priority */
+       1, /* task max activations */
+       {
+         1, /* extended task */
+         1, /* preemtive task */
+         0
+      }, /* task const flags */
+      0 , /* events mask */
+      0 ,/* resources mask */
+      0 /* core */
+   },
+   /* Task ModoNoche */
+   {
+       OSEK_TASK_ModoNoche,   /* task entry point */
+       &ContextTaskModoNoche, /* pointer to task context */
+       StackTaskModoNoche, /* pointer stack memory */
+       sizeof(StackTaskModoNoche), /* stack size */
+       0, /* task priority */
+       1, /* task max activations */
+       {
+         1, /* extended task */
+         1, /* preemtive task */
          0
       }, /* task const flags */
       0 , /* events mask */
@@ -166,26 +222,30 @@ const AutoStartType AutoStart[1]  = {
    }
 };
 
-const ReadyConstType ReadyConst[1] = { 
+const ReadyConstType ReadyConst[2] = { 
    {
-      2, /* Length of this ready list */
+      1, /* Length of this ready list */
+      ReadyList1 /* Pointer to the Ready List */
+   },
+   {
+      3, /* Length of this ready list */
       ReadyList0 /* Pointer to the Ready List */
    }
 };
 
 /** TODO replace next line with: 
- ** ReadyVarType ReadyVar[1] ; */
-ReadyVarType ReadyVar[1];
+ ** ReadyVarType ReadyVar[2] ; */
+ReadyVarType ReadyVar[2];
 
 /** \brief Resources Priorities */
 const TaskPriorityType ResourcesPriority[0]  = {
 
 };
 /** TODO replace next line with: 
- ** AlarmVarType AlarmsVar[2]; */
-AlarmVarType AlarmsVar[2];
+ ** AlarmVarType AlarmsVar[4]; */
+AlarmVarType AlarmsVar[4];
 
-const AlarmConstType AlarmsConst[2]  = {
+const AlarmConstType AlarmsConst[4]  = {
    {
       OSEK_COUNTER_HardwareCounter, /* Counter */
       ACTIVATETASK, /* Alarm action */
@@ -201,7 +261,27 @@ const AlarmConstType AlarmsConst[2]  = {
       ACTIVATETASK, /* Alarm action */
       {
          NULL, /* no callback */
-         BlinkLed, /* TaskID */
+         ModoOperativo, /* TaskID */
+         0, /* no event */
+         0 /* no counter */
+      },
+   },
+   {
+      OSEK_COUNTER_HardwareCounter, /* Counter */
+      ACTIVATETASK, /* Alarm action */
+      {
+         NULL, /* no callback */
+         ModoServicio, /* TaskID */
+         0, /* no event */
+         0 /* no counter */
+      },
+   },
+   {
+      OSEK_COUNTER_HardwareCounter, /* Counter */
+      ACTIVATETASK, /* Alarm action */
+      {
+         NULL, /* no callback */
+         ModoNoche, /* TaskID */
          0, /* no event */
          0 /* no counter */
       },
@@ -214,12 +294,6 @@ const AutoStartAlarmType AutoStartAlarm[ALARM_AUTOSTART_COUNT] = {
       ActivateReadUART, /* Alarms */
       0, /* Alarm Time */
       100 /* Alarm Time */
-   },
-  {
-      AppMode1, /* Application Mode */
-      ActivateBlinkLed, /* Alarms */
-      500, /* Alarm Time */
-      1000 /* Alarm Time */
    }
 };
 
@@ -227,7 +301,7 @@ CounterVarType CountersVar[1];
 
 const CounterConstType CountersConst[1] = {
    {
-      2, /* quantity of alarms for this counter */
+      4, /* quantity of alarms for this counter */
       (AlarmType*)OSEK_ALARMLIST_HardwareCounter, /* alarms list */
       1000, /* max allowed value */
       1, /* min cycle */
@@ -247,6 +321,30 @@ uint8 ErrorHookRunning;
 /*==================[internal functions definition]==========================*/
 
 /*==================[external functions definition]==========================*/
+void OSEK_ISR2_uart_usb(void)
+{
+   /* store the calling context in a variable */
+   ContextType actualContext = GetCallingContext();
+   /* set isr 2 context */
+   SetActualContext(CONTEXT_ISR2);
+
+   /* trigger isr 2 */
+   OSEK_ISR_uart_usb();
+
+   /* reset context */
+   SetActualContext(actualContext);
+
+#if (NON_PREEMPTIVE == OSEK_DISABLE)
+   /* check if the actual task is preemptive */
+   if ( ( CONTEXT_TASK == actualContext ) &&
+        ( TasksConst[GetRunningTask()].ConstFlags.Preemtive ) )
+   {
+      /* this shall force a call to the scheduler */
+      PostIsr2_Arch(isr);
+   }
+#endif /* #if (NON_PREEMPTIVE == OSEK_ENABLE) */
+}
+
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */

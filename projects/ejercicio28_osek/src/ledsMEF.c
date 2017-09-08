@@ -5,7 +5,7 @@
  *      Author: matias
  */
 
-#include "../inc/ledsMEF.h"
+#include "ledsMEF.h"
 #include "sapi.h"         /* <= sAPI header */
 
 /*

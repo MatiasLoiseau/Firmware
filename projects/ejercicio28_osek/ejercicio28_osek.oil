@@ -12,24 +12,39 @@ OSEK OSEK {
    };
 
    EVENT = EventoDelay;
-
    APPMODE = AppMode1;
 
+//TASK A
    TASK ReadUART {
-      PRIORITY = 1;
+      PRIORITY = 2;
       ACTIVATION = 1;
       STACK = 512;
       TYPE = BASIC;
-      SCHEDULE = NON;
-      
+      SCHEDULE = NON;      
    }
 
-   TASK BlinkLed {
+   TASK ModoOperativo {
       PRIORITY = 1;
       ACTIVATION = 1;
       STACK = 512;
-      TYPE = BASIC;
-      SCHEDULE = NON;
+      TYPE = EXTENDED;
+      SCHEDULE = FULL;
+   }
+
+   TASK ModoServicio {
+      PRIORITY = 1;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = EXTENDED;
+      SCHEDULE = FULL;
+   }
+
+   TASK ModoNoche {
+      PRIORITY = 1;
+      ACTIVATION = 1;
+      STACK = 512;
+      TYPE = EXTENDED;
+      SCHEDULE = FULL;
    }
 
    ALARM ActivateReadUART {
@@ -44,17 +59,33 @@ OSEK OSEK {
       }
    }
 
-   ALARM ActivateBlinkLed {
+   ALARM ActivateModoOperativo {
       COUNTER = HardwareCounter;
       ACTION = ACTIVATETASK {
-         TASK = BlinkLed;
-      }
-      AUTOSTART = TRUE {
-         APPMODE = AppMode1;
-         ALARMTIME = 500;
-         CYCLETIME = 1000;
+         TASK = ModoOperativo;
       }
    }
+
+   ALARM ActivateModoServicio {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = ModoServicio;
+      }
+   }
+
+   ALARM ActivateModoNoche {
+      COUNTER = HardwareCounter;
+      ACTION = ACTIVATETASK {
+         TASK = ModoNoche;
+      }
+   }
+
+   	ISR uart_usb { 
+		CATEGORY = 2; 
+		INTERRUPT = UART2; 
+		PRIORITY = 0; 
+  	} 
+
 
    COUNTER HardwareCounter {
       MAXALLOWEDVALUE = 1000;

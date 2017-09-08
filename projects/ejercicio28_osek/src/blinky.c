@@ -9,35 +9,36 @@
 #include "sapi.h"     // <= Biblioteca sAPI
 #include "os.h"       // <= freeOSEK
 #include "osektools.h"
+#include "ledsMEF.h"
 
 /*==================[definiciones y macros]==================================*/
 
 /*==================[definiciones de datos internos]=========================*/
-
-uint8_t cantVecesBlink;
 
 /*==================[definiciones de datos externos]=========================*/
 
 /*==================[declaraciones de funciones internas]====================*/
 
 
-TASK (BlinkLed) {
-	uartWriteString( UART_USB, "task BlinkLed\n");
-	if(cantVecesBlink){
-		cantVecesBlink--;
-		gpioToggle(LED1);
-	}
-	TerminateTask();
-}
+TASK (ModoOperativo) {
 
+}
+TASK (ModoServicio) {
+
+}
+TASK (ModoNoche) {
+
+}
 
 TASK (ReadUART) {
-	if(uartReadByte(UART_USB, &cantVecesBlink)){
-		CancelAlarm(ActivateBlinkLed);
-		SetRelAlarm(ActivateBlinkLed, 500, 1000);
-	}
+
 	TerminateTask();
 }
+
+ISR( uart_usb ){
+
+}
+
 
 /*==================[declaraciones de funciones externas]====================*/
 

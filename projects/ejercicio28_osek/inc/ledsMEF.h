@@ -5,8 +5,10 @@
  *      Author: matias
  */
 
-#ifndef PROJECTS_EJERCICIO20_OSEK_INC_TECLASMEF_H_
-#define PROJECTS_EJERCICIO20_OSEK_INC_TECLASMEF_H_
+#ifndef _LEDSMEF_H_
+#define _LEDSMEF_H_
+
+#include "sapi.h"
 
 typedef enum
 {
@@ -28,4 +30,4 @@ typedef struct
 void teclasMEFUpdate ( teclasMEFStruct_t * );
 
 
-#endif /* PROJECTS_EJERCICIO20_OSEK_INC_TECLASMEF_H_ */
+#endif /* _LEDSMEF_H_ */

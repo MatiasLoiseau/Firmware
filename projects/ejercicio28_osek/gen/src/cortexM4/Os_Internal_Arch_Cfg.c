@@ -179,7 +179,7 @@ void (* const g_pfnVectors[])(void) = {
    OSEK_ISR_NoHandler, /* 0x27 0x0000009C - No Handler set for ISR SSP1 (IRQ 23) */
    OSEK_ISR_NoHandler, /* 0x28 0x000000A0 - No Handler set for ISR UART0 (IRQ 24) */
    OSEK_ISR_NoHandler, /* 0x29 0x000000A4 - No Handler set for ISR UART1 (IRQ 25) */
-   OSEK_ISR_NoHandler, /* 0x2a 0x000000A8 - No Handler set for ISR UART2 (IRQ 26) */
+   OSEK_ISR2_uart_usb, /* 0x2a 0x000000A8 ISR for UART2 (IRQ 26) Category 2 */
    OSEK_ISR_NoHandler, /* 0x2b 0x000000AC - No Handler set for ISR UART3 (IRQ 27) */
    OSEK_ISR_NoHandler, /* 0x2c 0x000000B0 - No Handler set for ISR I2S0 (IRQ 28) */
    OSEK_ISR_NoHandler, /* 0x2d 0x000000B4 - No Handler set for ISR I2S1 (IRQ 29) */
@@ -211,16 +211,24 @@ void (* const g_pfnVectors[])(void) = {
 /** \brief Interrupt enabling and priority setting function */
 void Enable_User_ISRs(void)
 {
+   /* Enabling IRQ UART2 with priority 0 */
+   NVIC_EnableIRQ(26);
+   NVIC_SetPriority(26, 0);
+
 }
 
 /** \brief Enable user defined category 2 ISRs */
 void Enable_ISR2_Arch(void)
 {
+   /* Enabling IRQ UART2 */
+   NVIC_EnableIRQ(26);
 }
 
 /** \brief Disable user defined category 2 ISRs */
 void Disable_ISR2_Arch(void)
 {
+   /* Disabling IRQ UART2 */
+   NVIC_DisableIRQ(26);
 }
 
 /** @} doxygen end group definition */
