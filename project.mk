@@ -41,26 +41,35 @@
 #projects
 
 #Various projects
-#PROJECT = projects/mi_nuevo_proyecto
-#PROJECT = projects/gpio_blinky
-#PROJECT = projects/pruebas_task
+#PROJECT = projects/OSEK/mi_nuevo_proyecto
+#PROJECT = projects/OSEK/gpio_blinky
+#PROJECT = projects/OSEK/pruebas_task
 
 #My projects CAPSE OSEK
-#PROJECT = projects/ej4osek_carlos
-#PROJECT = projects/ejercicio14_osek
-#PROJECT = projects/ejercicio18_osek
-#PROJECT = projects/ejercicio20_osek
-PROJECT = projects/ejercicio21_osek
-#PROJECT = projects/ejercicio22_osek
-#PROJECT = projects/isr_gpio_osek
+#PROJECT = projects/OSEK/ej4osek_carlos
+#PROJECT = projects/OSEK/ejercicio14_osek
+#PROJECT = projects/OSEK/ejercicio18_osek
+#PROJECT = projects/OSEK/ejercicio20_osek
+#PROJECT = projects/OSEK/ejercicio21_osek
+#PROJECT = projects/OSEK/ejercicio22_osek
+#PROJECT = projects/OSEK/ejercicio28_osek
+#PROJECT = projects/OSEK/matias_problema_isr
+#PROJECT = projects/OSEK/isr_gpio_osek
+
+PROJECT = projects/OSEK/matias_examen
 
 #Examples and exercises in class in CAPSE OSEK
-#PROJECT = projects/c8_ejercicio_8_osek_v3
-#PROJECT = projects/c10_ej23_delay_osek
-#PROJECT = projects/c12_ej25_mauricio_mod
-#PROJECT = projects/c13_freeOSEK_isr1
-#PROJECT = projects/c13_freeOSEK_isr1_propio_generador
-#PROJECT = projects/c14_ej25_mauricio_mod_isr
+#PROJECT = projects/OSEK/c8_ejercicio_8_osek_v3
+#PROJECT = projects/OSEK/c10_ej23_delay_osek
+#PROJECT = projects/OSEK/c12_ej25_mauricio_mod
+#PROJECT = projects/OSEK/c13_freeOSEK_isr1
+#PROJECT = projects/OSEK/c13_freeOSEK_isr1_propio_generador
+#PROJECT = projects/OSEK/c14_ej25_mauricio_mod_isr
+#PROJECT = projects/OSEK/c14_ej32_mauricio_mod_ColaCircular
+#PROJECT = projects/OSEK/Ej30_FreeOSEK_4antireboteIRQ
+#PROJECT = projects/OSEK/Ej30B_FreeOSEK_4antireboteIRQ
+#PROJECT = projects/OSEK/c15_ej37_appmodes
+#PROJECT = projects/OSEK/c15_ej39_mauricio_mod
 
 
 # examples

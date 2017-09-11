@@ -82,11 +82,13 @@
 /** \brief Task Definition */
 #define ReadUART 0
 /** \brief Task Definition */
-#define ModoOperativo 1
+#define MostrarUART 1
 /** \brief Task Definition */
-#define ModoServicio 2
+#define TickCounter 2
 /** \brief Task Definition */
-#define ModoNoche 3
+#define BlinkLedRed 3
+/** \brief Task Definition */
+#define BlinkLedBlue 4
 
 /** \brief Definition of the Application Mode AppMode1 */
 #define AppMode1 0
@@ -97,12 +99,14 @@
 
 /** \brief Definition of the Alarm ActivateReadUART */
 #define ActivateReadUART 0
-/** \brief Definition of the Alarm ActivateModoOperativo */
-#define ActivateModoOperativo 1
-/** \brief Definition of the Alarm ActivateModoServicio */
-#define ActivateModoServicio 2
-/** \brief Definition of the Alarm ActivateModoNoche */
-#define ActivateModoNoche 3
+/** \brief Definition of the Alarm ActivateTickCounter */
+#define ActivateTickCounter 1
+/** \brief Definition of the Alarm ActivateBlinkLedRed */
+#define ActivateBlinkLedRed 2
+/** \brief Definition of the Alarm ActivateBlinkLedBlue */
+#define ActivateBlinkLedBlue 3
+/** \brief Definition of the Alarm ActivateMostrarUART */
+#define ActivateMostrarUART 4
 
 /** \brief Definition of the Counter HardwareCounter */
 #define HardwareCounter 0
@@ -196,15 +200,17 @@ extern void ErrorHook(void);
 
 /** \brief Task Declaration of Task ReadUART */
 DeclareTask(ReadUART);
-/** \brief Task Declaration of Task ModoOperativo */
-DeclareTask(ModoOperativo);
-/** \brief Task Declaration of Task ModoServicio */
-DeclareTask(ModoServicio);
-/** \brief Task Declaration of Task ModoNoche */
-DeclareTask(ModoNoche);
+/** \brief Task Declaration of Task MostrarUART */
+DeclareTask(MostrarUART);
+/** \brief Task Declaration of Task TickCounter */
+DeclareTask(TickCounter);
+/** \brief Task Declaration of Task BlinkLedRed */
+DeclareTask(BlinkLedRed);
+/** \brief Task Declaration of Task BlinkLedBlue */
+DeclareTask(BlinkLedBlue);
 
 /** \brief ISR Declaration */
-extern void OSEK_ISR_uart_usb(void); /* Interrupt Handler uart_usb */
+extern void OSEK_ISR_ISRtec(void); /* Interrupt Handler ISRtec */
 
 
 /** \brief Schedule this Task if higher priority Task are Active

@@ -82,7 +82,7 @@
 #define ERROR_CHECKING_EXTENDED   2
 
 /** \brief Count of task */
-#define TASKS_COUNT 4U
+#define TASKS_COUNT 5U
 
 /** \brief Remote tasks count */
 #define REMOTE_TASKS_COUNT 0U
@@ -118,11 +118,11 @@
       ErrorHookRunning = (uint8)0U;   \
    }
 
-#define ALARM_AUTOSTART_COUNT 1
+#define ALARM_AUTOSTART_COUNT 2
 
 #define OSEK_COUNTER_HardwareCounter 0
 /** \brief ALARMS_COUNT define */
-#define ALARMS_COUNT 4
+#define ALARMS_COUNT 5
 
 /** \brief NON_PREEMPTIVE macro definition */
 #define NON_PREEMPTIVE OSEK_DISABLE
@@ -358,10 +358,10 @@ extern ReadyVarType ReadyVar[2];
 extern const TaskPriorityType ResourcesPriority[0];
 
 /** \brief Alarms Variable Structure */
-extern AlarmVarType AlarmsVar[4];
+extern AlarmVarType AlarmsVar[5];
 
 /** \brief Alarms Constant Structure */
-extern const AlarmConstType AlarmsConst[4];
+extern const AlarmConstType AlarmsConst[5];
 
 /** \brief Alarms Constant Structure */
 extern const AutoStartAlarmType AutoStartAlarm[ALARM_AUTOSTART_COUNT];
@@ -372,9 +372,9 @@ extern CounterVarType CountersVar[1];
 /** \brief Counter Const Structure */
 extern const CounterConstType CountersConst[1];
 /*==================[external functions declaration]=========================*/
-/** \brief Interrupt Cat 2 uart_usb
+/** \brief Interrupt Cat 2 ISRtec
  **/
-extern void OSEK_ISR2_uart_usb(void);
+extern void OSEK_ISR2_ISRtec(void);
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */
