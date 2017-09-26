@@ -56,7 +56,7 @@
 #PROJECT = projects/OSEK/matias_problema_isr
 #PROJECT = projects/OSEK/isr_gpio_osek
 
-PROJECT = projects/OSEK/matias_examen
+#PROJECT = projects/OSEK/matias_examen
 
 #Examples and exercises in class in CAPSE OSEK
 #PROJECT = projects/OSEK/c8_ejercicio_8_osek_v3
@@ -70,6 +70,13 @@ PROJECT = projects/OSEK/matias_examen
 #PROJECT = projects/OSEK/Ej30B_FreeOSEK_4antireboteIRQ
 #PROJECT = projects/OSEK/c15_ej37_appmodes
 #PROJECT = projects/OSEK/c15_ej39_mauricio_mod
+
+#MyProjects bare-metal
+#PROJECT = projects/semaforoMEF
+#PROJECT = projects/keypad4x4
+#PROJECT = projects/display7seg4digit
+PROJECT = projects/servoExample
+
 
 
 # examples
