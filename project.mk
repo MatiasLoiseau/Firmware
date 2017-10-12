@@ -40,12 +40,19 @@
 
 #projects
 
+#MyProjects bare-metal
+#PROJECT = projects/semaforoMEF
+#PROJECT = projects/keypad4x4
+#PROJECT = projects/display7seg4digit
+#PROJECT = projects/servoExample
+
+#OSEK
 #Various projects
 #PROJECT = projects/OSEK/mi_nuevo_proyecto
 #PROJECT = projects/OSEK/gpio_blinky
 #PROJECT = projects/OSEK/pruebas_task
 
-#My projects CAPSE OSEK
+#My projects CAPSE
 #PROJECT = projects/OSEK/ej4osek_carlos
 #PROJECT = projects/OSEK/ejercicio14_osek
 #PROJECT = projects/OSEK/ejercicio18_osek
@@ -71,14 +78,6 @@
 #PROJECT = projects/OSEK/c15_ej37_appmodes
 #PROJECT = projects/OSEK/c15_ej39_mauricio_mod
 
-#MyProjects bare-metal
-#PROJECT = projects/semaforoMEF
-#PROJECT = projects/keypad4x4
-#PROJECT = projects/display7seg4digit
-PROJECT = projects/servoExample
-
-
-
 # examples
 
 #A la compilacion el target 
@@ -95,7 +94,7 @@ PROJECT = projects/servoExample
 #PROJECT = examples/multicore/freeRTOS_msg_ipc/m0
 #PROJECT = examples/multicore/freeRTOS_msg_ipc/start_m0
 
-#PROJECT = examples/blinky
+PROJECT = examples/blinky
 #PROJECT = examples/blinky_rit
 #PROJECT = examples/adc_fir_dac
 #PROJECT = examples/freertos_blinky
