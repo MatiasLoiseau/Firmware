@@ -41,10 +41,15 @@
 #projects
 
 #MyProjects bare-metal
+#PROJECT = projects/clean_code
 #PROJECT = projects/semaforoMEF
 #PROJECT = projects/keypad4x4
 #PROJECT = projects/display7seg4digit
 #PROJECT = projects/servoExample
+#PROJECT = projects/esp8266_uart_bridge
+#PROJECT = projects/test_tick
+PROJECT = projects/processing_uart
+
 
 #OSEK
 #Various projects
@@ -94,7 +99,7 @@
 #PROJECT = examples/multicore/freeRTOS_msg_ipc/m0
 #PROJECT = examples/multicore/freeRTOS_msg_ipc/start_m0
 
-PROJECT = examples/blinky
+#PROJECT = examples/blinky
 #PROJECT = examples/blinky_rit
 #PROJECT = examples/adc_fir_dac
 #PROJECT = examples/freertos_blinky

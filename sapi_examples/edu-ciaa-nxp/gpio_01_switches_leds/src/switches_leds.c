@@ -73,7 +73,7 @@ int main(void){
    while(1) {
 
       valor = !gpioRead( TEC1 );
-      gpioWrite( LEDB, valor );
+      gpioWrite( LEDR, valor );
 
       valor = !gpioRead( TEC2 );
       gpioWrite( LED1, valor );
