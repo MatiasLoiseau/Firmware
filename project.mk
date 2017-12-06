@@ -48,7 +48,7 @@
 #PROJECT = projects/servoExample
 #PROJECT = projects/esp8266_uart_bridge
 #PROJECT = projects/test_tick
-PROJECT = projects/processing_uart
+#PROJECT = projects/processing_uart
 
 
 #OSEK
@@ -117,6 +117,8 @@ PROJECT = projects/processing_uart
 #PROJECT = sapi_examples/edu-ciaa-nxp/uart_02_receive_string_blocking
 #PROJECT = sapi_examples/edu-ciaa-nxp/uart_03_receive_string
 #PROJECT = sapi_examples/edu-ciaa-nxp/uart_04_bridge_esp8266
+PROJECT = sapi_examples/edu-ciaa-nxp/uart_05_esp8266_http_server
+
 
 #PROJECT = sapi_examples/edu-ciaa-nxp/adc_dac_01
 

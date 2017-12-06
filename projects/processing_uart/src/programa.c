@@ -68,6 +68,8 @@ int main(void){
 	/* ------------- REPETIR POR SIEMPRE ------------- */
 	while(1) {
 		uartWriteByte( UART_USB, dato );
+		uartWriteByte( UART_USB, "\n" );
+
 		delay(100);
 		dato++;
 		if(dato==254){
