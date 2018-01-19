@@ -41,7 +41,7 @@
 #projects
 
 #MyProjects bare-metal
-PROJECT = projects/clean_code
+#PROJECT = projects/clean_code
 #PROJECT = projects/semaforoMEF
 #PROJECT = projects/keypad4x4
 #PROJECT = projects/display7seg4digit
@@ -49,7 +49,11 @@ PROJECT = projects/clean_code
 #PROJECT = projects/esp8266_uart_bridge
 #PROJECT = projects/test_tick
 #PROJECT = projects/processing_uart
-
+#PROJECT = projects/estados_leds_uart
+#PROJECT = projects/ejemplo_boton_externo
+#PROJECT = projects/entero_a_string
+#PROJECT = projects/mef_botones
+PROJECT = projects/buffer_circular
 
 #OSEK
 #Various projects
