@@ -41,7 +41,7 @@
 #projects
 
 #MyProjects bare-metal
-#PROJECT = projects/clean_code
+PROJECT = projects/clean_code
 #PROJECT = projects/semaforoMEF
 #PROJECT = projects/keypad4x4
 #PROJECT = projects/display7seg4digit
@@ -117,7 +117,7 @@
 #PROJECT = sapi_examples/edu-ciaa-nxp/uart_02_receive_string_blocking
 #PROJECT = sapi_examples/edu-ciaa-nxp/uart_03_receive_string
 #PROJECT = sapi_examples/edu-ciaa-nxp/uart_04_bridge_esp8266
-PROJECT = sapi_examples/edu-ciaa-nxp/uart_05_esp8266_http_server
+#PROJECT = sapi_examples/edu-ciaa-nxp/uart_05_esp8266_http_server
 
 
 #PROJECT = sapi_examples/edu-ciaa-nxp/adc_dac_01
