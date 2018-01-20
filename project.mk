@@ -53,7 +53,8 @@
 #PROJECT = projects/ejemplo_boton_externo
 #PROJECT = projects/entero_a_string
 #PROJECT = projects/mef_botones
-PROJECT = projects/buffer_circular
+#PROJECT = projects/buffer_circular
+#PROJECT = projects/bufferFIFO_reloj_uart
 
 #OSEK
 #Various projects
