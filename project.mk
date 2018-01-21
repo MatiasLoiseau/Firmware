@@ -55,6 +55,9 @@
 #PROJECT = projects/mef_botones
 #PROJECT = projects/buffer_circular
 #PROJECT = projects/bufferFIFO_reloj_uart
+#PROJECT = projects/ejemplo_rtc
+#PROJECT = projects/uart_receive_string
+PROJECT = projects/uart_receive_string_blocking
 
 #OSEK
 #Various projects
