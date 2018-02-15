@@ -57,7 +57,7 @@
 #PROJECT = projects/bufferFIFO_reloj_uart
 #PROJECT = projects/ejemplo_rtc
 #PROJECT = projects/uart_receive_string
-PROJECT = projects/uart_receive_string_blocking
+#PROJECT = projects/uart_receive_string_blocking
 
 #OSEK
 #Various projects
@@ -91,64 +91,96 @@ PROJECT = projects/uart_receive_string_blocking
 #PROJECT = projects/OSEK/c15_ej37_appmodes
 #PROJECT = projects/OSEK/c15_ej39_mauricio_mod
 
-# examples
-
 #A la compilacion el target 
 #ANOTACION IMPORTANTE MULTICORE--> Los targets: start_m0 = m4 ......... m0 = m0
 #Tambien acordarse de fijarse de cambiar
 # el etc/ld/lpc4337_m4_mem y etc/ld/lpc4337
-#PROJECT = examples/multicore/blinky/m0
-#PROJECT = examples/multicore/blinky/start_m0
-#PROJECT = examples/multicore/freeRTOS_blinky/m0
-#PROJECT = examples/multicore/freeRTOS_blinky/start_m0
-#PROJECT = examples/multicore/freeRTOS_static/m0
-#PROJECT = examples/multicore/freeRTOS_led_toggle/m0
-#PROJECT = examples/multicore/freeRTOS_led_toggle/start_m0
-#PROJECT = examples/multicore/freeRTOS_msg_ipc/m0
-#PROJECT = examples/multicore/freeRTOS_msg_ipc/start_m0
+#------------ examples -----------------------------------------
 
 #PROJECT = examples/blinky
 #PROJECT = examples/blinky_rit
 #PROJECT = examples/adc_fir_dac
 #PROJECT = examples/freertos_blinky
-#PROJECT = sapi_examples/edu-ciaa-nxp/sapi_usb_host_01_mass_storage_fatfilesystem
 
-# sapi_examples
+#------------ sapi_examples ------------------------------------
 
-#PROJECT = sapi_examples/edu-ciaa-nxp/gpio_01_switches_leds
-#PROJECT = sapi_examples/edu-ciaa-nxp/gpio_02_blinky
-#PROJECT = sapi_examples/edu-ciaa-nxp/gpio_03_blinky_switch
-#PROJECT = sapi_examples/edu-ciaa-nxp/gpio_04_led_sequences
-#PROJECT = sapi_examples/edu-ciaa-nxp/gpio_05_keypad_7segment
+#------------ Bare-metal examples ------------
 
-#PROJECT = sapi_examples/edu-ciaa-nxp/uart_01_echo
-#PROJECT = sapi_examples/edu-ciaa-nxp/uart_02_receive_string_blocking
-#PROJECT = sapi_examples/edu-ciaa-nxp/uart_03_receive_string
-#PROJECT = sapi_examples/edu-ciaa-nxp/uart_04_bridge_esp8266
-#PROJECT = sapi_examples/edu-ciaa-nxp/uart_05_esp8266_http_server
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/gpio/gpio_01_switches_leds
+PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/gpio/gpio_02_blinky
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/gpio/gpio_03_blinky_switch
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/gpio/gpio_04_led_sequences
 
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/keypad_7segment_01
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/lcd_01
 
-#PROJECT = sapi_examples/edu-ciaa-nxp/adc_dac_01
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/uart/uart_01_echo
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/uart/uart_02_receive_string_blocking
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/uart/uart_03_receive_string
 
-#PROJECT = sapi_examples/edu-ciaa-nxp/tick_01_tickHook
-#PROJECT = sapi_examples/edu-ciaa-nxp/rtc_01
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/stdio_01_printf_sprintf
 
-#PROJECT = sapi_examples/edu-ciaa-nxp/pwm_01
-#PROJECT = sapi_examples/edu-ciaa-nxp/servo_01
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/adc_dac_01
 
-#PROJECT = sapi_examples/edu-ciaa-nxp/i2c_01_hmc5883l
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/cycles_counter_01
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/tick_01_tickHook
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/rtc_01
 
-#PROJECT = sapi_examples/edu-ciaa-nxp/spi_01_sdcard_fatfilesystem
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/pwm/pwm_01
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/pwm/pwm_02_rgb_controller_uart
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/servo_01
 
-#PROJECT = sapi_examples/edu-ciaa-nxp/cooperative_os_scheduler_01_seos
-#PROJECT = sapi_examples/edu-ciaa-nxp/cooperative_os_scheduler_02_seos_background_foreground
-#PROJECT = sapi_examples/edu-ciaa-nxp/cooperative_os_scheduler_03_seos_Pont2014
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/magnetometers/i2c_01_hmc5883l
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/magnetometers/i2c_02_qmc5883l
 
-#PROJECT = sapi_examples/edu-ciaa-nxp/freeOSEK_01_blinky
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/temperature_humidity_sensors/dht11_01
 
-#PROJECT = sapi_examples/edu-ciaa-nxp/freeRTOS_01_blinky
-#PROJECT = sapi_examples/edu-ciaa-nxp/freeRTOS_02_ChanFatFS_SPI_SdCard_ADC_log
-#PROJECT = sapi_examples/edu-ciaa-nxp/freeRTOS_03_Queue
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/ultrasonicSensors/ultrasonicSensor_HCSR04_01
+
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/spi_01_sdCard_fatFileSystem
+
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/wifi_esp01_esp8266/01_uart_bridge
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/wifi_esp01_esp8266/02_http_server
+#PROJECT = sapi_examples/edu-ciaa-nxp/bare_metal/wifi_esp01_esp8266/03_thingspeak
+
+#------------ Operating systems examples ------------
+
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/coperative/scheduler_01_seos
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/coperative/scheduler_02_seos_background_foreground
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/coperative/seos_Pont2014_01
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/coperative/seos_pont_02_microwave
+
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeOSEK/freeOSEK_01_blinky
+
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_01_blinky
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_02_Queue
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_03_ChanFatFS_SPI_SdCard_ADC_log
+
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example001
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example002
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example003
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example004
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example005
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example006
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example007
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example008
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example009
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example010
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example011
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example012
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example013
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example014
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example015
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example016
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example017
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example018
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example019
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example020
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example021
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example022
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example023
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example024
+#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_book/Example025
 
 #-------------------------------------------------------------------------------
 # current target
