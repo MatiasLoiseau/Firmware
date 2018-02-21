@@ -58,7 +58,7 @@
 #PROJECT = projects/ejemplo_rtc
 #PROJECT = projects/uart_receive_string
 #PROJECT = projects/uart_receive_string_blocking
-PROJECT = projects/adc_plot
+#PROJECT = projects/adc_plot
 
 
 #OSEK
@@ -97,6 +97,22 @@ PROJECT = projects/adc_plot
 #ANOTACION IMPORTANTE MULTICORE--> Los targets: start_m0 = m4 ......... m0 = m0
 #Tambien acordarse de fijarse de cambiar
 # el etc/ld/lpc4337_m4_mem y etc/ld/lpc4337
+#------------ MULTICORE examples -------------------------------
+
+#PROJECT = examples/multicore/blinky/m0
+#PROJECT = examples/multicore/blinky/start_m0
+PROJECT = examples/multicore/freeRTOS_blinky/m0
+#PROJECT = examples/multicore/freeRTOS_blinky/start_m0
+#PROJECT = examples/multicore/freeRTOS_fir/m0
+#PROJECT = examples/multicore/freeRTOS_fir/start_m0
+#PROJECT = examples/multicore/freeRTOS_led_toggle/m0
+#PROJECT = examples/multicore/freeRTOS_led_toggle/start_m0
+#PROJECT = examples/multicore/freeRTOS_msg_ipc/m0
+#PROJECT = examples/multicore/freeRTOS_msg_ipc/start_m0
+#PROJECT = examples/multicore/freeRTOS_static/m0
+#PROJECT = examples/multicore/freeRTOS_static/start_m0
+
+
 #------------ examples -----------------------------------------
 
 #PROJECT = examples/blinky
@@ -188,8 +204,8 @@ PROJECT = projects/adc_plot
 # current target
 #-------------------------------------------------------------------------------
 
-TARGET = lpc4337_m4
-#TARGET = lpc4337_m0
+#TARGET = lpc4337_m4
+TARGET = lpc4337_m0
 #TARGET = lpc1769
 #TARGET = lpc54102_m4
 #TARGET = lpc54102_m0
