@@ -58,7 +58,7 @@
 #PROJECT = projects/ejemplo_rtc
 #PROJECT = projects/uart_receive_string
 #PROJECT = projects/uart_receive_string_blocking
-PROJECT = projects/adc_plot
+#PROJECT = projects/adc_plot
 
 
 #OSEK
@@ -154,7 +154,7 @@ PROJECT = projects/adc_plot
 
 #PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeOSEK/freeOSEK_01_blinky
 
-#PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_01_blinky
+PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_01_blinky
 #PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_02_Queue
 #PROJECT = sapi_examples/edu-ciaa-nxp/operating_systems/freeRTOS/freeRTOS_03_ChanFatFS_SPI_SdCard_ADC_log
 
