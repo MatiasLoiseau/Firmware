@@ -73,14 +73,14 @@ int main(void){
 	/* ------------- REPETIR POR SIEMPRE ------------- */
 	while(1) {
 		/* delayRead retorna TRUE cuando se cumple el tiempo de retardo */
-		if ( delayRead( &delayMuestreo ) ){
+		/*if ( delayRead( &delayMuestreo ) ){
 
 			// Leo la Entrada Analogica AI0 - ADC0 CH1
 			muestra = adcRead( CH1 );
 
 			//Conversión de muestra entera a ascii con base decimal
 			//El itoa debe descomentarse si se quiere usar el CuteCom y no el SerialPlot
-			//itoa( muestra, uartBuff, 10 ); /* 10 significa decimal */
+			//itoa( muestra, uartBuff, 10 ); // 10 significa decimal
 
 			// Enviar muestra
 			if(muestra<256){
@@ -92,7 +92,16 @@ int main(void){
 			}
 
 
-		}
+		}/*
+		/* delayRead retorna TRUE cuando se cumple el tiempo de retardo */
+			// Leo la Entrada Analogica AI0 - ADC0 CH1
+			muestra = adcRead( CH1 );
+
+			//Conversión de muestra entera a ascii con base decimal
+			//El itoa debe descomentarse si se quiere usar el CuteCom y no el SerialPlot
+			//itoa( muestra, uartBuff, 10 ); /* 10 significa decimal */
+			uartWriteByte( UART_USB, muestra );
+
 
 
 	}

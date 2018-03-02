@@ -58,7 +58,7 @@
 #PROJECT = projects/ejemplo_rtc
 #PROJECT = projects/uart_receive_string
 #PROJECT = projects/uart_receive_string_blocking
-#PROJECT = projects/adc_plot
+PROJECT = projects/adc_plot
 
 
 #OSEK
@@ -101,7 +101,7 @@
 
 #PROJECT = examples/multicore/blinky/m0
 #PROJECT = examples/multicore/blinky/start_m0
-PROJECT = examples/multicore/freeRTOS_blinky/m0
+#PROJECT = examples/multicore/freeRTOS_blinky/m0
 #PROJECT = examples/multicore/freeRTOS_blinky/start_m0
 #PROJECT = examples/multicore/freeRTOS_fir/m0
 #PROJECT = examples/multicore/freeRTOS_fir/start_m0
@@ -204,8 +204,8 @@ PROJECT = examples/multicore/freeRTOS_blinky/m0
 # current target
 #-------------------------------------------------------------------------------
 
-#TARGET = lpc4337_m4
-TARGET = lpc4337_m0
+TARGET = lpc4337_m4
+#TARGET = lpc4337_m0
 #TARGET = lpc1769
 #TARGET = lpc54102_m4
 #TARGET = lpc54102_m0
