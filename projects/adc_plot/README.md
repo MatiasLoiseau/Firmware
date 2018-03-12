@@ -1,15 +1,10 @@
 # ADC_PLOT
 
-## instalación
+## instalación del SerialPlot
 
-**This environment is under construction!!**
+sudo add-apt-repository ppa:hyozd/serialplot
+sudo apt-get update
+
+source: https://launchpad.net/~hyozd/+archive/ubuntu/serialplot
 
 
-## Notas
-
-Sacar el delay de muestreo
-NO toma valores negativos
- 1 Sumar una tension continua?
-  1a Esa tensión continua con la alterna compraten la misma masa ?
-
-Buscar mas formas como convertir la tensión negativa por software sino...
