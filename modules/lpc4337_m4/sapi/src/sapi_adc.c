@@ -81,7 +81,7 @@ void adcConfig( adcConfig_t config ){
          /* Disable burst mode */
          Chip_ADC_SetBurstCmd( LPC_ADC0, DISABLE );
          /* Set sample rate to 200KHz */
-         Chip_ADC_SetSampleRate( LPC_ADC0, &ADCSetup, ADC_MAX_SAMPLE_RATE/2 );
+         Chip_ADC_SetSampleRate( LPC_ADC0, &ADCSetup, ADC_MAX_SAMPLE_RATE );
          /* Disable all channels */
          Chip_ADC_EnableChannel( LPC_ADC0,ADC_CH1, DISABLE );
          Chip_ADC_Int_SetChannelCmd( LPC_ADC0, ADC_CH1, DISABLE );
