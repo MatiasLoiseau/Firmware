@@ -142,6 +142,7 @@ int main(void){
    /* Conversión de muestra entera a ascii con base decimal usando itoa() */
    itoa( dato3, uartBuff, 10 ); /* base 10 significa decimal */
    uartWriteString( UART_USB, uartBuff );
+   uartWriteString( UART_USB, dato3 );
 
    uartWriteString( UART_USB, "\r\n" ); /* Enviar un Enter */
 

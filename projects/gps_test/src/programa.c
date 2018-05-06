@@ -27,17 +27,17 @@ int main(void){
 	uartConfig( UART_USB, 115200 );
 	uartConfig( UART_232, 9600 );
 
-	uint8_t dataSentFromUSB  = 0;
-	uint8_t dataReceivedFromGPS  = 0;
+	uint8_t dataReceivedFromUSBtoGPS  = 0;
+	uint8_t dataReceivedFromGPStoUSB  = 0;
 
 	/* ------------- REPETIR POR SIEMPRE ------------- */
 	while(1) {
 
-		//if(  uartReadByte( UART_USB, &dataSentFromUSB ) ){
-			//uartWriteByte( UART_232, dataSentFromUSB );
+		//if(  uartReadByte( UART_USB, &dataReceivedFromUSBtoGPS ) ){
+			//uartWriteByte( UART_232, dataReceivedFromUSBtoGPS );
 		//}
-		if(  uartReadByte( UART_232, &dataReceivedFromGPS ) ){
-			uartWriteByte( UART_USB, dataReceivedFromGPS );
+		if(  uartReadByte( UART_232, &dataReceivedFromGPStoUSB ) ){
+			uartWriteByte( UART_USB, dataReceivedFromGPStoUSB );
 		}
 	}
 

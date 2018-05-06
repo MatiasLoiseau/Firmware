@@ -59,8 +59,8 @@
 #PROJECT = projects/uart_receive_string
 #PROJECT = projects/uart_receive_string_blocking
 #PROJECT = projects/adc_plot
-PROJECT = projects/adc_plot_microfono
-#PROJECT = projects/gps_test
+#PROJECT = projects/adc_plot_microfono
+PROJECT = projects/gps_test
 
 
 #OSEK

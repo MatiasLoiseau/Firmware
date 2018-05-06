@@ -29,16 +29,16 @@
 	return muestraModificada;
 }*/
 
-void inicializarVector(uint16_t vector[], uint32_t cantMuestras){
-	uint32_t variableAuxiliar;
+void inicializarVector(uint16_t vector[], uint16_t cantMuestras){
+	uint16_t variableAuxiliar;
 	for(variableAuxiliar=0;variableAuxiliar<cantMuestras;variableAuxiliar+1){
 		vector[variableAuxiliar]=0;
 	}
 }
-void printVector(uint16_t vector[], uint32_t cantMuestras){
-	uint32_t variableAuxiliar;
-	uint32_t valorActualAMostrar;
-	for(variableAuxiliar=0;variableAuxiliar<cantMuestras;variableAuxiliar+1){
+void printVector(uint16_t vector[], uint16_t cantMuestras){
+	uint16_t variableAuxiliar;
+	uint16_t valorActualAMostrar;
+	for(variableAuxiliar=0;variableAuxiliar<cantMuestras;variableAuxiliar++){
 		valorActualAMostrar=vector[variableAuxiliar];
 		uartWriteByte( UART_USB, valorActualAMostrar );
 	}
@@ -57,23 +57,29 @@ int main(void){
 	/* Inicializar AnalogIO */
 	adcConfig( ADC_ENABLE ); /* ADC */
 	// Variable para almacenar el valor leido del ADC CH1
-	uint16_t cantMuestras = 60000; //max value = 65535 probar otros valores
+	uint16_t cantMuestras = 5; //max value = 65535 probar otros valores
 	uint16_t muestras[cantMuestras];
-	uint32_t conteoMuestras=0;
+	gpioWrite(LED2, TRUE);
+	uint16_t conteoMuestras=0;
+
 
 	inicializarVector(muestras, cantMuestras);
+	//gpioWrite(LED2, FALSE);
 	/* ------------- REPETIR POR SIEMPRE ------------- */
 	while(1) {
-		if(gpioRead(TEC1)==0){
+		if(!gpioRead(TEC1)){
+			gpioWrite(LED1, TRUE);
 			muestras[conteoMuestras]=adcRead( CH1 );
 			conteoMuestras=conteoMuestras+1;
 		}
 		//reinicia el conteo a 0
-		if(gpioRead(TEC2)==0){
+		if(!gpioRead(TEC2)){
 			conteoMuestras=0;
+			gpioWrite(LED1, FALSE);
+			gpioWrite(LED2, FALSE);
 		}
 		//printea el valor por la uart_usb
-		if(gpioRead(TEC3)==0){
+		if(!gpioRead(TEC3)){
 			printVector(muestras, cantMuestras);
 		}
 	}
